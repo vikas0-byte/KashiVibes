@@ -1,0 +1,84 @@
+<section class="relative">
+  <!-- background pattern -->
+  <div class="absolute inset-0 opacity-5">
+    <div
+      class="w-full h-full bg-gradient-to-br from-primary via-transparent to-accent"
+    ></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative">
+    <div class="section-title mb-xl">
+      <h2
+        class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent"
+      >
+        Sacred Ganga Boat Rides
+      </h2>
+      <p class="text-lg leading-relaxed max-w-3xl mx-auto">
+        Discover the mystical beauty of the Ganges through our carefully curated
+        boat tours. Choose from traditional hand boats for an authentic
+        spiritual journey or modern motor boats for comfort and stability.
+      </p>
+      <!-- stats -->
+
+      <div class="flex justify-center gap-8 mt-8">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-primary">500+</div>
+          <div class="text-sm text-muted-foreground">Happy Travelers</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-accent">4.9</div>
+          <div class="text-sm text-muted-foreground">Average Rating</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-success">15+</div>
+          <div class="text-sm text-muted-foreground">Tour Options</div>
+        </div>
+      </div>
+    </div>
+    <!-- filter tabs -->
+
+    <!-- Simple Tabs - No Custom Components -->
+<div class="flex justify-center mb-8">
+  <div class="grid grid-cols-4 gap-1 bg-muted/50 backdrop-blur-sm rounded-lg p-1 max-w-md mx-auto">
+    <button 
+      (click)="activeFilter.set('all')"
+      [class]="getTabClasses('all')"
+      class="text-sm py-2 rounded-sm transition-all"
+    >
+      All Tours
+    </button>
+    <button 
+      (click)="activeFilter.set('hand')"
+      [class]="getTabClasses('hand')"
+      class="text-sm py-2 rounded-sm transition-all"
+    >
+      🛶 Hand
+    </button>
+    <button 
+      (click)="activeFilter.set('motor')"
+      [class]="getTabClasses('motor')"
+      class="text-sm py-2 rounded-sm transition-all"
+    >
+      🚤 Motor
+    </button>
+    <button 
+      (click)="activeFilter.set('popular')"
+      [class]="getTabClasses('popular')"
+      class="text-sm py-2 rounded-sm transition-all"
+    >
+      ⭐ Popular
+    </button>
+  </div>
+</div>
+
+    <!-- tours grid -->
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-xl">
+        @for (tour of filteredTours(); track tour.title; let index = $index) {
+            <div class="animate-fade-in" [style.animation-delay]="index * 0.1 + 's'">
+                <app-boat-ride [tour]="tour"></app-boat-ride>
+            </div>
+        }
+    </div>
+  </div>
+</section>

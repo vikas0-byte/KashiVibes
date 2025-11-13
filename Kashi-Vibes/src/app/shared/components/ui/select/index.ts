@@ -1,0 +1,11 @@
+export { SelectComponent } from './select.component';
+export { SelectTriggerComponent } from './select-trigger.component';
+export { SelectValueComponent } from './select-value.component';
+export { SelectContentComponent } from './select-content.component';
+export { SelectItemComponent } from './select-item.component';
+export { SelectGroupComponent } from './select-group.component';
+export { SelectLabelComponent } from './select-label.component';
+export { SelectSeparatorComponent } from './select-separator.component';
+export { SelectScrollUpButtonComponent } from './select-scroll-up-button.component';
+export { SelectScrollDownButtonComponent } from './select-scroll-down-button.component';
+export { ClickOutsideDirective } from '../../../directives/click-outside.directive'; 

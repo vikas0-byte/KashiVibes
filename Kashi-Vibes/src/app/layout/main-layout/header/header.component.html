@@ -1,0 +1,324 @@
+<header class="relative z-50 w-full">
+  <!-- Top Bar -->
+  <div class="bg-secondary text-white py-2 px-4">
+    <div
+      class="container mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-xs sm:text-sm"
+    >
+      <div class="flex items-center gap-3 sm:gap-6">
+        <div class="flex items-center gap-2">
+          <lucide-icon
+            [img]="phoneIcon"
+            class="w-3.5 h-3.5 text-accent"
+          ></lucide-icon>
+          <span>+91 98765 43210</span>
+        </div>
+        <span class="hidden sm:inline text-accent">|</span>
+        <div class="flex items-center gap-2">
+          <lucide-icon
+            [img]="mailIcon"
+            class="w-3.5 h-3.5 text-accent"
+          ></lucide-icon>
+          <span class="hidden sm:inline">info&#64;kashivibes.com</span>
+          <span class="sm:hidden">Email Us</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <lucide-icon
+          [img]="mapPinIcon"
+          class="h-3,5 w-3.5 text-accent"
+        ></lucide-icon>
+        <span>Varanasi, Uttar Pradesh</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navbar -->
+  <nav
+    class="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-lg border-b border-border shadow-sm transition-all duration-300"
+  >
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center h-16 md:h-20">
+        <!-- Logo -->
+        <a
+          [routerLink]="['/']"
+          class="flex items-center font-bold text-xl md:text-2xl relative group"
+        >
+          <img
+            [src]="logoImage"
+            alt="KashiVibes"
+            class="h-10 md:h-12 w-32 md:w-40 bg-gradient-to-r from-primary to-warning rounded-lg flex items-center justify-center text-white font-bold tracking-wide shadow-md group-hover:shadow-lg transition-shadow"
+          />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex items-center justify-center flex-1 mx-8">
+          <ul class="flex items-center space-x-1 xl:space-x-2">
+            <li>
+              <a
+                [routerLink]="['/']"
+                [ngClass]="{
+                  'text-primary bg-primary/10': isActiveRoute('/'),
+                  'text-foreground hover:text-primary hover:bg-muted': !isActiveRoute('/')
+                }"
+                class="nav-link relative font-medium transition-all duration-300 px-3 py-2 rounded-md"
+              >
+                Home
+              </a>
+            </li>
+            
+            <!-- Packages Dropdown -->
+            <li
+              class="relative group"
+              (mouseenter)="isPackagesOpen.set(true)"
+              (mouseleave)="isPackagesOpen.set(false)"
+            >
+              <a
+                [routerLink]="['/package']"
+                [ngClass]="{
+                  'text-primary bg-primary/10': isPackageActive(),
+                  'text-foreground hover:text-primary hover:bg-muted': !isPackageActive()
+                }"
+                class="nav-link relative font-medium transition-all duration-300 px-3 py-2 rounded-md flex items-center gap-1"
+              >
+                Packages
+                <lucide-icon
+                  [img]="chevronDownIcon"
+                  class="h-4 w-4 transition-transform duration-300"
+                  [ngClass]="{ 'rotate-180': isPackagesOpen() }"
+                ></lucide-icon>
+              </a>
+              
+              <!-- Dropdown Menu -->
+              <div
+                class="absolute left-1/2 transform -translate-x-1/2 mt-2 bg-card rounded-lg shadow-lg border border-border p-2 transition-all duration-300 ease-in-out min-w-[280px]"
+                [ngClass]="{
+                  'opacity-100 visible translate-y-0': isPackagesOpen(),
+                  'opacity-0 invisible -translate-y-2': !isPackagesOpen()
+                }"
+              >
+                @for (item of packageItems; track item.href) {
+                <a
+                  [routerLink]="[item.href]"
+                  [ngClass]="{
+                    'text-primary bg-primary/10': isActiveRoute(item.href),
+                    'text-foreground hover:text-primary hover:bg-muted hover:pl-6': !isActiveRoute(item.href)
+                  }"
+                  class="block px-4 py-3 text-sm font-medium rounded-md transition-all duration-300"
+                  (mouseenter)="onDropdownItemHover($event)"
+                  (mouseleave)="onDropdownItemLeave($event)"
+                >
+                  {{ item.label }}
+                </a>
+                }
+              </div>
+            </li>
+
+            <!-- Other Navigation Items -->
+            @for (item of navItems; track item.href) {
+            <li>
+              <a
+                [routerLink]="[item.href]"
+                [ngClass]="{
+                  'text-primary bg-primary/10': isActiveRoute(item.href),
+                  'text-foreground hover:text-primary hover:bg-muted': !isActiveRoute(item.href)
+                }"
+                class="nav-link relative font-medium transition-all duration-300 px-3 py-2 rounded-md"
+              >
+                {{ item.label }}
+              </a>
+            </li>
+            }
+          </ul>
+        </div>
+
+        <!-- User Actions -->
+<div class="flex items-center gap-4">
+  <!-- User Dropdown (Logged In) -->
+  @if (authService.isAuthenticated()) {  
+  <div class="relative" 
+       (mouseenter)="userDropdownOpen.set(true)" 
+       (mouseleave)="userDropdownOpen.set(false)">
+    
+    <button class="flex items-center gap-2 text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md hover:bg-muted">
+      <lucide-icon [img]="userIcon" class="h-5 w-5"></lucide-icon>
+      <span class="hidden sm:inline font-medium">
+        {{ authService.currentUser()?.name || 'User' }}  <!-- ✅ Direct service signal -->
+      </span>
+      <lucide-icon [img]="chevronDownIcon" class="h-4 w-4 transition-transform" 
+                   [ngClass]="{ 'rotate-180': userDropdownOpen() }"></lucide-icon>
+    </button>
+
+    <!-- Dropdown Menu -->
+    <div class="absolute right-0 mt-2 w-48 bg-card rounded-lg shadow-lg border border-border py-1 transition-all duration-300 z-50"
+         [ngClass]="{
+           'opacity-100 visible translate-y-0': userDropdownOpen(),
+           'opacity-0 invisible -translate-y-2': !userDropdownOpen()
+         }">
+      
+      @for (item of userMenuItems; track item.href) {
+      <a [routerLink]="[item.href]"
+         class="flex items-center gap-3 px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-muted transition-colors"
+         (click)="userDropdownOpen.set(false)">
+        <lucide-icon [img]="item.icon" class="h-4 w-4"></lucide-icon>
+        {{ item.label }}
+      </a>
+      }
+      
+      <div class="border-t border-border my-1"></div>
+      
+      <button (click)="onLogoutClick($event)"
+              class="flex items-center gap-3 w-full px-4 py-2 text-sm text-destructive hover:bg-muted transition-colors">
+        <lucide-icon [img]="logOutIcon" class="h-4 w-4"></lucide-icon>
+        Logout
+      </button>
+    </div>
+  </div>
+  } @else {
+  <!-- Login Button (Logged Out) -->
+  <div class="hidden lg:block">
+    <button (click)="onLoginClick()" 
+            class="bg-primary text-primary-foreground font-semibold py-2 px-6 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg">
+      Login
+    </button>
+  </div>
+  }
+
+  <!-- Mobile Menu Button -->
+  <button type="button"
+          class="lg:hidden p-2 text-foreground hover:text-primary transition-colors rounded-md hover:bg-muted"
+          (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
+    @if (isMobileMenuOpen()) {
+    <lucide-icon [img]="xIcon" class="h-6 w-6"></lucide-icon>
+    } @else {
+    <lucide-icon [img]="menuIcon" class="h-6 w-6"></lucide-icon>
+    }
+  </button>
+</div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        class="lg:hidden transition-all duration-300 ease-in-out overflow-hidden"
+        [ngClass]="{
+          'max-h-screen opacity-100': isMobileMenuOpen(),
+          'max-h-0 opacity-0': !isMobileMenuOpen()
+        }"
+      >
+        <div class="bg-card rounded-lg shadow-lg m-4 p-4 border border-border">
+          <div class="space-y-1">
+            <a
+              [routerLink]="['/']"
+              [ngClass]="{
+                'text-primary bg-primary/10': isActiveRoute('/'),
+                'text-foreground hover:text-primary hover:bg-muted': !isActiveRoute('/')
+              }"
+              class="block py-3 px-4 rounded-md font-medium transition-all duration-300"
+              (click)="closeAllDropdowns()"
+            >
+              Home
+            </a>
+
+            <!-- Mobile Packages -->
+            <div>
+              <div
+                [ngClass]="{
+                  'text-primary bg-primary/10': isPackageActive(),
+                  'text-foreground hover:text-primary hover:bg-muted': !isPackageActive()
+                }"
+                class="py-3 px-4 rounded-md font-medium cursor-pointer flex items-center justify-between transition-all duration-300"
+                (click)="isPackagesOpen.set(!isPackagesOpen())"
+              >
+                Packages
+                <lucide-icon
+                  [img]="chevronDownIcon"
+                  [ngClass]="{ 'rotate-180': isPackagesOpen() }"
+                  class="h-4 w-4 transition-transform duration-300"
+                ></lucide-icon>
+              </div>
+              <div
+                class="transition-all duration-300 ease-in-out overflow-hidden"
+                [ngClass]="{
+                  'max-h-screen opacity-100 mt-1': isPackagesOpen(),
+                  'max-h-0 opacity-0': !isPackagesOpen()
+                }"
+              >
+                @for (item of packageItems; track item.href) {
+                <a
+                  [routerLink]="[item.href]"
+                  [ngClass]="{
+                    'text-primary border-primary bg-primary/10': isActiveRoute(item.href),
+                    'text-foreground border-transparent hover:text-primary hover:border-primary/50 hover:bg-muted': !isActiveRoute(item.href)
+                  }"
+                  class="block py-2 px-8 text-sm rounded-md transition-all duration-300 border-l-4 ml-4 my-1"
+                  (click)="closeAllDropdowns()"
+                >
+                  {{ item.label }}
+                </a>
+                }
+              </div>
+            </div>
+
+            @for (item of navItems; track item.href) {
+            <a
+              [routerLink]="[item.href]"
+              [ngClass]="{
+                'text-primary bg-primary/10': isActiveRoute(item.href),
+                'text-foreground hover:text-primary hover:bg-muted': !isActiveRoute(item.href)
+              }"
+              class="block py-3 px-4 rounded-md font-medium transition-all duration-300"
+              (click)="closeAllDropdowns()"
+            >
+              {{ item.label }}
+            </a>
+            }
+
+            <!-- Mobile Auth Buttons -->
+            <div class="pt-4 border-t border-border">
+        @if (authService.isAuthenticated()) {  <!-- ✅ Direct service signal -->
+        <div class="space-y-2">
+          <div class="px-4 py-2 text-sm text-muted-foreground">
+            Welcome, {{ authService.currentUser()?.name }}  <!-- ✅ Direct service signal -->
+          </div>
+          @for (item of userMenuItems; track item.href) {
+          <a [routerLink]="[item.href]"
+             class="flex items-center gap-3 py-2 px-4 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors"
+             (click)="closeAllDropdowns()">
+            <lucide-icon [img]="item.icon" class="h-4 w-4"></lucide-icon>
+            {{ item.label }}
+          </a>
+          }
+          <button (click)="onLogoutClick($event)"
+                  class="flex items-center gap-3 w-full py-2 px-4 text-destructive hover:bg-muted rounded-md transition-colors">
+            <lucide-icon [img]="logOutIcon" class="h-4 w-4"></lucide-icon>
+            Logout
+          </button>
+        </div>
+        } @else {
+        <button (click)="onLoginClick()"
+                class="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-lg hover:bg-primary/90 transition-all">
+          Login
+        </button>
+        }
+      </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Auth Dialogs -->
+  <app-login-dialog
+    [open]="showLoginDialog()"
+    (openChange)="onLoginDialogChange($event)"
+    (switchToRegister)="onSwitchToRegister()"
+    (loginSuccess)="onAuthSuccess()"
+  ></app-login-dialog>
+
+  <app-register-dialog
+    [open]="showRegisterDialog()"
+    (openChange)="onRegisterDialogChange($event)"
+    (switchToLogin)="onSwitchToLogin()"
+    (registerSuccess)="onAuthSuccess()"
+  ></app-register-dialog>
+</header>

@@ -1,0 +1,21 @@
+<section class="py-16 bg-background animate-fade-in">
+      <div class="container mx-auto px-4">
+        <div class="section-title">
+          <h2 class="text-4xl md:text-5xl font-bold text-secondary mb-6">Why Choose KashiVibes?</h2>
+          <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+            We provide authentic spiritual experiences with local expertise and personalized services
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+            <div key={index} class="feature-card group" *ngFor="let feature of features">
+              <div class="features-icon">
+                <lucide-icon [img]="feature.icon" class="w-16 h-16 text-primary group-hover:scale-110 transition-transform duration-300"></lucide-icon>
+              </div>
+              <h3 class="text-xl font-bold text-card-foreground mb-4">{{feature.title}}</h3>
+              <p class="text-muted-foreground leading-relaxed">{{feature.description}}</p>
+            </div>
+        </div>
+      </div>
+    </section>

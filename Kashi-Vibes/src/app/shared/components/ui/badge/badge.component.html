@@ -1,0 +1,23 @@
+<div class="flex items-center gap-1">
+  <!-- Icon (if provided) -->
+  @if (icon) {
+    <span class="mr-1" [innerHTML]="icon"></span>
+  }
+  
+  <!-- Content -->
+  <ng-content></ng-content>
+  
+  <!-- Close button (if showClose is true) -->
+  @if (showClose) {
+    <button 
+      type="button" 
+      class="ml-1 rounded-full p-0.5 hover:bg-black/10 focus:outline-none focus:ring-1"
+      (click)="onClose.emit(); $event.stopPropagation()"
+      aria-label="Close badge"
+    >
+      <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  }
+</div>

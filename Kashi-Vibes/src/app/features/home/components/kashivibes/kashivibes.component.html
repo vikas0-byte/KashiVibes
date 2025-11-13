@@ -1,0 +1,95 @@
+<section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-secondary opacity-5"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <!-- Image Side -->
+          <div class="relative animate-fade-in order-2 lg:order-1">
+            <div class="relative rounded-3xl overflow-hidden shadow-large group">
+              <img
+                src="/assets/kashivibes/ganga-aarti-realistic.jpg"
+                alt="Ganga Aarti Ceremony at Dashashwamedh Ghat Varanasi"
+                class="w-full h-[500px] object-cover transition-smooth group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/20 to-transparent"></div>
+              
+              <!-- Decorative Elements -->
+              <div class="absolute top-6 left-6 w-20 h-20 bg-accent/20 rounded-full blur-2xl"></div>
+              <div class="absolute bottom-6 right-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
+            </div>
+
+            <!-- Floating Card -->
+            <div class="absolute -bottom-6 -right-6 bg-card p-6 rounded-2xl shadow-large max-w-xs hidden lg:block">
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center">
+                  <span class="text-2xl font-bold text-primary-foreground">5+</span>
+                </div>
+                <div>
+                  <p class="font-bold text-foreground">Years of Excellence</p>
+                  <p class="text-sm text-muted-foreground">Trusted by thousands</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Side -->
+          <div class="animate-slide-in-right order-1 lg:order-2">
+            <div class="inline-block mb-4">
+              <span class="px-4 py-2 bg-gradient-primary text-primary-foreground rounded-full text-sm font-semibold shadow-soft">
+                Experience the Divine
+              </span>
+            </div>
+
+            <h2 class="hero-title text-4xl lg:text-5xl mb-6">
+              Why Choose KashiVibes?
+            </h2>
+
+            <p class="text-lg text-muted-foreground mb-6 leading-relaxed italic">
+              Where ancient spirituality meets modern comfort - Your gateway to the soul of Varanasi.
+            </p>
+
+            <div class="space-y-4 text-foreground leading-relaxed">
+              <p>
+                <span class="font-bold text-primary">KashiVibes</span> is not just a travel service – it's your
+                <span class="font-semibold text-secondary"> spiritual companion</span> in exploring the eternal city of Varanasi. 
+                We craft <span class="font-semibold text-primary">unforgettable journeys</span> that blend sacred traditions 
+                with contemporary comfort, ensuring every moment resonates with the divine energy of Kashi.
+              </p>
+
+              <p>
+                From the mystical <span class="font-semibold text-secondary">Ganga Aarti at Dashashwamedh Ghat</span> to 
+                the serene boat rides at dawn, from ancient temple visits to hidden gems known only to locals – we curate
+                <span class="font-semibold text-primary"> personalized experiences</span> that touch your soul. 
+                Our expert guides don't just show you Varanasi; they help you <span class="italic">feel its vibes</span>, 
+                understand its stories, and connect with its timeless spirit.
+              </p>
+
+              <p>
+                With <span class="font-bold text-primary">KashiVibes</span>, you're not just visiting Varanasi – 
+                you're experiencing a <span class="font-semibold text-secondary">transformation</span>. 
+                Premium transportation, authentic cultural immersion, and memories that last a lifetime – 
+                all wrapped in the sacred essence of the world's oldest living city.
+              </p>
+            </div>
+
+            <div class="mt-8">
+              <button 
+                class="bg-gradient-primary text-primary-foreground border-0 hover:shadow-glow transition-smooth px-8 py-6 text-lg font-semibold rounded-md"
+              >
+                Learn more →
+              </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-border/50">
+              <div *ngFor="let stat of stats" class="text-center">
+                <p class="text-3xl font-bold bg-gradient-spiritual bg-clip-text text-transparent">
+                  {{stat.value}}
+                </p>
+                <p class="text-sm text-muted-foreground mt-1">{{stat.label}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

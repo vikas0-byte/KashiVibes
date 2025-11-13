@@ -1,0 +1,109 @@
+<section class="relative h-[80vh] overflow-hidden">
+      <div 
+        class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        [style]="{'background-image': 'url(' + streetFoodHero + ')'}"
+      >
+        <div class="absolute inset-0" [style]="{'background': 'var(--gradient-overlay)'}"></div>
+      </div>
+      
+      <div class="relative z-10 flex items-center h-full px-4">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <!-- Left Content -->
+          <div class="text-white animate-fade-in">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">
+                Street Food Tour
+              </div>
+              <div class="flex items-center gap-1">
+                <lucide-icon [img]="starIcon" class="w-5 h-5 fill-yellow-400 text-yellow-400"></lucide-icon>
+                <span class="font-semibold">4.9</span>
+                <span class="opacity-75">(156 reviews)</span>
+              </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" [style]="{'font-family': 'var(--font-heading)'}">
+              Street Food & Hidden Gems
+            </h1>
+            
+            <p class="text-xl mb-8 opacity-90 max-w-lg">
+              Embark on a culinary adventure through the narrow lanes of Kashi and discover authentic flavors that have been passed down through generations.
+            </p>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 text-sm">
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="clockIcon" class="w-5 h-5"></lucide-icon>
+                <span>4-6 Hours</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="usersIcon" class="w-5 h-5"></lucide-icon>
+                <span>2-8 People</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="mapPinIcon" class="w-5 h-5"></lucide-icon>
+                <span>6+ Locations</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="cameraIcon" class="w-5 h-5"></lucide-icon>
+                <span>Photo Guide</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="utensilsIcon" class="w-5 h-5"></lucide-icon>
+                <span>Local Guide</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="heartIcon" class="w-5 h-5"></lucide-icon>
+                <span>Cultural Stories</span>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button 
+                class="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg font-semibold rounded-lg transition-colors"
+                [style]="{'background': 'var(--gradient-primary)'}"
+              >
+                Book Now - ₹1,499
+              </button>
+              <button 
+                class="border border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg font-semibold rounded-lg transition-colors flex items-center justify-center"
+              >
+                <lucide-icon [img]="shareIcon" class="w-5 h-5 mr-2"></lucide-icon>
+                Share
+              </button>
+            </div>
+          </div>
+          
+          <!-- Right Card -->
+          <div class="hidden lg:block">
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 text-white p-6 rounded-lg">
+              <h3 class="text-2xl font-bold mb-4" [style]="{'font-family': 'var(--font-heading)'}">
+                What's Included
+              </h3>
+              <ul class="space-y-3">
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Professional local food guide</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Tastings at 6+ authentic spots</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Cultural stories and history</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Photography assistance</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-accent rounded-full"></div>
+                  <span>Bottled water and wet wipes</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

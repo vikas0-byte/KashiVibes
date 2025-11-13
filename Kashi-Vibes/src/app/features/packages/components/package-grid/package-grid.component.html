@@ -1,0 +1,132 @@
+<div>
+  <!-- Header -->
+  <div class="bg-card rounded-xl p-6 mb-8 shadow-soft border border-border">
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+      <div>
+        <h2 class="text-3xl font-bold mb-2 text-foreground">
+          @if (filteredPackages.length === packages.length) {
+            All Packages
+          } @else {
+            {{ filteredPackages.length }} {{ filteredPackages.length === 1 ? 'Package' : 'Packages' }} Found
+          }
+        </h2>
+        <p class="text-muted-foreground font-medium">
+          Discover your perfect spiritual journey with our curated experiences
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4 flex-wrap">
+        <!-- Sort Dropdown -->
+        <div class="flex items-center gap-3 bg-background border border-border rounded-lg px-4 py-2.5">
+          <lucide-icon [img]="sortAscIcon" class="h-5 w-5 text-primary"></lucide-icon>
+          <select 
+            [value]="sortBy"
+            (change)="onSortChange($event)"
+            class="bg-transparent outline-none text-sm font-medium cursor-pointer"
+          >
+            <option value="featured">Featured First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="duration">Duration</option>
+          </select>
+        </div>
+
+        <!-- View Mode Toggle -->
+        <div class="flex border border-border rounded-lg overflow-hidden">
+          <app-button
+            (click)="setViewMode('grid')"
+            [variant]="viewMode === 'grid' ? 'default' : 'ghost'"
+            class="!rounded-none border-l"
+          >
+            <lucide-icon [img]="gridIcon" class="h-4 w-4"></lucide-icon>
+            Grid
+          </app-button>
+          <app-button
+            (click)="setViewMode('list')"
+            [variant]="viewMode === 'list' ? 'default' : 'ghost'"
+            class="!rounded-none"
+          >
+            <lucide-icon [img]="listIcon" class="h-4 w-4 mr-2"></lucide-icon>
+            List
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Filters -->
+  @if (activeFiltersCount > 0) {
+    <div class="mb-6 bg-muted/50 rounded-lg p-4 border border-border">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-sm font-semibold text-foreground">Active Filters:</p>
+        <app-button 
+          variant="ghost"
+          size="sm"
+          (click)="clearAllFilters()"
+          class="h-8 text-xs"
+        >
+          Clear All
+        </app-button>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        @for (filter of activeFiltersArray; track $index) {
+          <app-badge variant="secondary" class="font-medium">
+            {{ filter.category }}: {{ filter.value }}
+          </app-badge>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Package Grid -->
+  @if (sortedPackages.length > 0) {
+    <div [class]="viewMode === 'grid' 
+      ? 'grid grid-cols-1 md:grid-cols-2 gap-8' 
+      : 'grid grid-cols-1 gap-8'">
+      @for (pkg of sortedPackages; track pkg.id) {
+        <app-package-card
+          [package]="pkg"
+          [viewMode]="viewMode"
+          (wishlistToggle)="onWishlistToggle($event)"
+          (shareClick)="onShareClick($event)"
+          (viewDetails)="onViewDetails($event)"
+          (bookNow)="onBookNow($event)"
+        ></app-package-card>
+      }
+    </div>
+  } @else {
+    <div class="text-center py-20 bg-card rounded-xl border border-border">
+      <div class="max-w-md mx-auto">
+        <div class="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+          <lucide-icon [img]="mapPinIcon" class="h-8 w-8 text-muted-foreground"></lucide-icon>
+        </div>
+        <h3 class="text-xl font-bold mb-2 text-foreground">No packages found</h3>
+        <p class="text-muted-foreground mb-6">
+          Try adjusting your filters to find more options
+        </p>
+        <app-button 
+          variant="outline"
+          (click)="clearAllFilters()"
+          size="lg"
+        >
+          Clear All Filters
+        </app-button>
+      </div>
+    </div>
+  }
+
+  <!-- Load More -->
+  @if (sortedPackages.length > 0 && sortedPackages.length >= 6) {
+    <div class="text-center mt-10">
+      <button 
+        variant="outline"
+        size="lg"
+        (click)="loadMorePackages()"
+        class="font-medium min-w-[200px]"
+      >
+        Load More Packages
+      </button>
+    </div>
+  }
+</div>

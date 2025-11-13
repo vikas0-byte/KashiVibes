@@ -1,0 +1,128 @@
+<section class="py-16">
+      <div class="container mx-auto px-4">
+         <!-- Main CTA  -->
+        <div class="relative">
+          <div class="bg-gradient-spiritual text-white p-12 text-center rounded-3xl overflow-hidden border shadow-sm">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 opacity-30"></div>
+            
+            <div class="relative z-10">
+              <div class="mb-6">
+                <lucide-icon [img]="sparklesIcon" size="64" class="mx-auto mb-4 text-amber-300"></lucide-icon>
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                  Ready for Your Sacred Journey?
+                </h2>
+                <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto">
+                  Join thousands of pilgrims who have experienced the divine with Sacred Journeys. 
+                  Book now or create your custom spiritual adventure.
+                </p>
+              </div>
+
+              <div class="flex flex-wrap justify-center gap-6 mb-8">
+                <app-button 
+                  size="lg" 
+                  variant="secondary"
+                  className="px-8 py-3 !text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  📞 Call Now: +91 98765 43210
+                </app-button>
+                <app-button 
+                  size="lg" 
+                  variant="outline"
+                  (click)="onCustomButtonClick()"
+                  className="px-8 py-3 !text-lg border-2 bg-transparent border-white text-white hover:bg-white hover:text-primary shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  ✨ Create Custom Package
+                </app-button>
+              </div>
+
+              <div class="text-center">
+                <p class="text-lg opacity-90 mb-4">
+                  🎉 <strong>Special Offer:</strong> Book before 31st December and get 15% off on all packages!
+                </p>
+                <p class="text-sm opacity-75">
+                  *Terms and conditions apply. Offer valid for new bookings only.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!-- Contact Options  -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+           <!-- Call Us Card  -->
+          <div class="group relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-orange-600 to-pink-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+            <div class="rounded-lg text-card-foreground shadow-sm relative bg-gradient-to-br from-orange-50 to-pink-50 dark:from-orange-950/20 dark:to-pink-950/20 border-2 border-orange-200 dark:border-orange-800 overflow-hidden group-hover:scale-105 transition-all duration-300">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-full -mr-16 -mt-16"></div>
+              <div class="relative p-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 mb-6 shadow-2xl group-hover:rotate-6 transition-transform duration-300">
+                  <lucide-icon [img]="phoneIcon" class="h-10 w-10 text-white animate-pulse"></lucide-icon>
+                </div>
+                <h3 class="font-bold text-2xl mb-3 bg-gradient-to-r from-orange-600 to-pink-600 bg-clip-text text-transparent">
+                  Call Us Now
+                </h3>
+                <p class="text-muted-foreground mb-2 font-medium">📞 Instant Connection</p>
+                <p class="text-sm text-muted-foreground mb-6">Available 24/7 for you</p>
+                <app-button 
+                  size="lg"
+                  class="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base py-6"
+                >
+                  <lucide-icon [img]="phoneIcon" class="h-5 w-5 mr-2"></lucide-icon>
+                  +91 98765 43210
+                </app-button>
+              </div>
+            </div>
+          </div>
+
+          <!--  WhatsApp Card  -->
+          <div class="group relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+            <div class="rounded-lg text-card-foreground shadow-sm relative bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border-2 border-green-200 dark:border-green-800 overflow-hidden group-hover:scale-105 transition-all duration-300">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full -mr-16 -mt-16"></div>
+              <div class="relative p-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 mb-6 shadow-2xl group-hover:rotate-6 transition-transform duration-300">
+                  <lucide-icon [img]="messageCircleIcon" class="h-10 w-10 text-white animate-pulse"></lucide-icon>
+                </div>
+                <h3 class="font-bold text-2xl mb-3 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                  WhatsApp Chat
+                </h3>
+                <p class="text-muted-foreground mb-2 font-medium">💬 Quick Response</p>
+                <p class="text-sm text-muted-foreground mb-6">Get instant replies</p>
+                <app-button 
+                  size="lg"
+                  class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base py-6"
+                >
+                  <lucide-icon [img]="messageCircleIcon" class="h-5 w-5 mr-2"></lucide-icon>
+                  Chat Now
+                </app-button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Card -->
+          <div class="group relative">
+            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+            <div class="relative bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-2 border-blue-200 dark:border-blue-800 overflow-hidden group-hover:scale-105 transition-all duration-300">
+              <div class="absrounded-lg text-card-foreground shadow-sm relative bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-2 border-blue-200 dark:border-blue-800 overflow-hidden group-hover:scale-105 transition-all duration-300"></div>
+              <div class="relative p-8">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 mb-6 shadow-2xl group-hover:rotate-6 transition-transform duration-300">
+                  <lucide-icon [img]="mailIcon" class="h-10 w-10 text-white animate-pulse"></lucide-icon>
+                </div>
+                <h3 class="font-bold text-2xl mb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Email Us
+                </h3>
+                <p class="text-muted-foreground mb-2 font-medium">✉️ Detailed Queries</p>
+                <p class="text-sm text-muted-foreground mb-6">Reply within 2 hours</p>
+                <app-button 
+                  size="lg"
+                  class="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-bold shadow-xl hover:shadow-2xl transition-all duration-300 text-base py-6"
+                >
+                  <lucide-icon [img]="mailIcon" class="h-5 w-5 mr-2"></lucide-icon>
+                  Send Email
+                </app-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

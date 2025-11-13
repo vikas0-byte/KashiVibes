@@ -1,0 +1,23 @@
+<section class="py-16 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <div class="section-title">
+      <h2>Why Choose Sacred Journeys?</h2>
+      <p>
+        Trusted by thousands of pilgrims for authentic spiritual experiences across India's sacred destinations
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (indicator of indicators; track indicator; let index = $index) {
+        <div class="feature-card text-center animate-fade-in" 
+             [style.animation-delay]="index * 0.1 + 's'">
+          <div class="mb-4">
+            <lucide-icon [img]="indicator.icon" class="h-10 w-10 mx-auto text-primary"></lucide-icon>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">{{ indicator.title }}</h3>
+          <p class="text-muted-foreground text-sm">{{ indicator.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

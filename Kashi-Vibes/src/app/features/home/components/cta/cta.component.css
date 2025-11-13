@@ -1,0 +1,349 @@
+.spiritual-journey-section {
+    position: relative;
+    padding: 3rem 0;
+    background: var(--gradient-journey);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .background-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .sacred-pattern {
+    position: absolute;
+    inset: 0;
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    z-index: -1;
+    opacity: 0.3;
+  }
+
+  .journey-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Sacred Icon */
+  .sacred-icon {
+    margin-bottom: 2rem;
+  }
+
+  .icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-glow);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .om-symbol {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Heading Override for Angular Converted */
+  .spiritual-journey-section .section-title h2 {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: white !important;
+    color: white !important;
+  }
+
+  .spiritual-journey-section .section-title h2::after {
+    background: linear-gradient(90deg, #f39c12, #e67e22) !important;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Contact Information */
+  .contact-info {
+    margin-bottom: 3rem;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .contact-items {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease-out;
+    min-width: 280px;
+  }
+
+  .contact-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large);
+    color: white;
+    text-decoration: none;
+  }
+
+  .contact-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    color: hsl(var(--primary)) !important;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .contact-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+  }
+
+  .contact-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .journey-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 1.5rem;
+    border: none;
+    transition: all 0.3s ease-out;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .journey-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease-out;
+  }
+
+  .journey-btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary {
+    background: var(--gradient-secondary);
+    color: white;
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-large);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  /* Sacred Divider */
+  .sacred-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    );
+  }
+
+  .divider-symbol {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  /* Animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .spiritual-journey-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease-out;
+  }
+
+  .spiritual-journey-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .journey-content > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+  }
+
+  .spiritual-journey-section.visible .journey-content > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered animation for children */
+  .spiritual-journey-section.visible .sacred-icon {
+    transition-delay: 0.1s;
+  }
+
+  .spiritual-journey-section.visible .section-title {
+    transition-delay: 0.2s;
+  }
+
+  .spiritual-journey-section.visible .contact-info {
+    transition-delay: 0.4s;
+  }
+
+  .spiritual-journey-section.visible .action-buttons {
+    transition-delay: 0.5s;
+  }
+
+  .spiritual-journey-section.visible .sacred-divider {
+    transition-delay: 0.6s;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .spiritual-journey-section {
+      padding: 2rem 0;
+      min-height: auto;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .journey-btn {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+
+    .contact-items {
+      flex-direction: column;
+    }
+
+    .contact-item {
+      min-width: auto;
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .icon-wrapper {
+      width: 60px;
+      height: 60px;
+    }
+
+    .om-symbol {
+      font-size: 2rem;
+    }
+  }
+
+  /* Accessibility */
+  .contact-item:focus,
+  .journey-btn:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .spiritual-journey-section,
+    .journey-content > *,
+    .contact-item,
+    .journey-btn,
+    .icon-wrapper {
+      transition: none;
+      animation: none;
+    }
+    
+    .journey-btn::before {
+      display: none;
+    }
+  }
+

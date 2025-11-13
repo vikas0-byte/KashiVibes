@@ -1,0 +1,17 @@
+.navbar .nav-link:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--color-primary);
+  transition: all 0.3s ease;
+  will-change: width, left;
+}
+
+.navbar .nav-link:hover:after,
+.navbar .nav-link.activer:after {
+  width: 70%;
+  left: 15%;
+}

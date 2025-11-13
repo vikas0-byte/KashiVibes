@@ -1,0 +1,111 @@
+import { FoodSpot } from "../models/interface/food-spot.interface";
+
+export const FOOD_SPOTS_DATA: FoodSpot[] = [
+  {
+    id: 1,
+    name: "Blue Lassi Shop",
+    type: "Beverage",
+    price: 50,
+    rating: 4.8,
+    reviews: 234,
+    description: "Famous for its thick, creamy lassi served in traditional clay pots since 1925",
+    image: "/assets/packages/streetfood/FoodPackages/food-lassi.jpg",
+    location: "Vishwanath Gali",
+    timings: "6:00 AM - 11:00 PM",
+    mustTry: ["Malai Lassi", "Bhang Lassi", "Fruit Lassi"],
+    difficulty: "Easy",
+    crowd: "High",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+    featured: true,
+  },
+  {
+    id: 2,
+    name: "Kachori Gali",
+    type: "Snacks",
+    price: 30,
+    rating: 4.6,
+    reviews: 189,
+    description: "Crispy kachoris with spicy potato curry, a breakfast favorite among locals",
+    image: "/assets/packages/streetfood/FoodPackages/food-kachori.jpg",
+    location: "Dashashwamedh Ghat Area",
+    timings: "7:00 AM - 12:00 PM",
+    mustTry: ["Dal Kachori", "Aloo Sabzi", "Tamatar Chutney"],
+    difficulty: "Easy",
+    crowd: "Medium",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+  },
+  {
+    id: 3,
+    name: "Chaat Corner",
+    type: "Chaat",
+    price: 40,
+    rating: 4.7,
+    reviews: 156,
+    description: "Authentic Banarasi chaat with unique flavors and secret family recipes",
+    image: "/assets/packages/streetfood/FoodPackages/food-chaat.jpg",
+    location: "Godowlia Market",
+    timings: "4:00 PM - 10:00 PM",
+    mustTry: ["Tamatar Chaat", "Aloo Tikki", "Gol Gappa"],
+    difficulty: "Medium",
+    crowd: "High",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+    featured: true
+  },
+  {
+    id: 4,
+    name: "Malaiyo Wala",
+    type: "Dessert",
+    price: 80,
+    rating: 4.9,
+    reviews: 298,
+    description: "Seasonal winter delicacy - ethereal milk foam dessert available only in winter",
+    image: "/assets/packages/streetfood/FoodPackages/food-malaiyo.jpg",
+    location: "Thatheri Bazaar",
+    timings: "6:00 AM - 11:00 AM (Winter Only)",
+    mustTry: ["Classic Malaiyo", "Kesar Malaiyo"],
+    difficulty: "Hard",
+    crowd: "Medium",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+  },
+  {
+    id: 5,
+    name: "Baati Chokha Corner",
+    type: "Main Course",
+    price: 120,
+    rating: 4.5,
+    reviews: 87,
+    description: "Traditional Baati Chokha served with pure ghee and authentic preparations",
+    image: "/assets/packages/streetfood/FoodPackages/food-baati.jpg",
+    location: "Lanka Market",
+    timings: "11:00 AM - 3:00 PM, 6:00 PM - 10:00 PM",
+    mustTry: ["Baati Chokha", "Dal Baati", "Ghevar"],
+    difficulty: "Medium",
+    crowd: "Low",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+  },
+  {
+    id: 6,
+    name: "Kulfi Corner",
+    type: "Dessert",
+    price: 60,
+    rating: 4.4,
+    reviews: 142,
+    description: "Hand-churned traditional kulfi with various flavors and toppings",
+    image: "/assets/packages/streetfood/FoodPackages/food-kulfi.jpg",
+    location: "Assi Ghat",
+    timings: "12:00 PM - 11:00 PM",
+    mustTry: ["Malai Kulfi", "Pista Kulfi", "Rabri Kulfi"],
+    difficulty: "Easy",
+    crowd: "Medium",
+    coordinates: { lat: 25.3176, lng: 83.0058 },
+    featured: true
+  }
+];
+
+export const FOOD_TYPES = [
+  'All', 'Beverage', 'Snacks', 'Chaat', 'Dessert', 'Main Course'
+];
+
+export const DIFFICULTY_LEVELS = [
+  'All', 'Easy', 'Medium', 'Hard'
+];

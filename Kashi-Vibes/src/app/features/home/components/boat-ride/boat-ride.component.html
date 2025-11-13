@@ -1,0 +1,173 @@
+<ui-card
+  [class]="getcomputedCardClasses()"
+  (mouseenter)="isHovered.set(true)"
+  (mouseleave)="isHovered.set(false)"
+>
+  <!-- image section -->
+
+  <div class="relative overflow-hidden">
+    <div
+      [class]="getcomputedImageClasses()"
+      [style.background-image]="'url(' + tour.image + ')'"
+    >
+      <!-- Gradient Overlay -->
+
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+      ></div>
+    </div>
+
+    <!-- Popular Badge -->
+
+    @if (tour.isPopular) {
+    <div class="absolute top-4 left-4">
+      <app-badge
+        class="!bg-accent text-accent-foreground font-semibold px-3 py-1.5 text-sm animate-pulse"
+      >
+        ⭐&nbsp;Most Popular
+      </app-badge>
+    </div>
+    }
+
+    <!-- Price Badge -->
+
+    <div class="absolute top-4 right-4 text-right">
+      <app-badge
+        variant="destructive"
+        class="!bg-destructive text-destructive-foreground font-bold px-4 py-2 text-base shadow-lg"
+      >
+        @if (tour.discount) {
+        <span class="line-through text-destructive-foreground/70 text-sm mr-2">
+          {{ tour.originalPrice }}
+        </span>
+        } From {{ tour.price }}
+      </app-badge>
+      @if (tour.discount) {
+      <div class="mt-1">
+        <app-badge
+          class="!bg-success text-success-foreground font-medium px-2 py-1 text-xs"
+        >
+          {{ tour.discount }} OFF
+        </app-badge>
+      </div>
+      }
+    </div>
+
+    <!-- Transport Type Badge -->
+    <div class="absolute bottom-4 left-4">
+      <app-badge
+        variant="secondary"
+        class="!bg-info/90 bgtext-info-foreground font-medium px-3 py-1.5 text-sm backdrop-blur-sm"
+      >
+        {{ getTransportIcon() }} {{ tour.transportType }}
+      </app-badge>
+    </div>
+    <!-- Like Button -->
+
+    <button (click)="toggleLike()" [class]="computedLikeButtonClasses">
+      <lucide-icon
+        [img]="heart"
+        [class]="computedHeartIconClasses"
+      ></lucide-icon>
+    </button>
+  </div>
+  <ui-card-content class="p-2 space-y-4">
+    <!-- Location -->
+    @if (tour.location) {
+    <div class="flex items-center gap-2 text-sm text-muted-foreground">
+      <lucide-icon [img]="map" class="w-4 h-4"></lucide-icon>
+      <span>{{ tour.location }}</span>
+    </div>
+    }
+    <ui-card-header>
+      <ui-card-title
+        class="text-xl font-bold mb-2 leading-tight group-hover:text-primary transition-colors duration-300 line-clamp-1"
+      >
+        {{ tour.title }}
+      </ui-card-title>
+    
+
+    <p class="text-muted-foreground text-sm leading-relaxed line-clamp-3 text-justify">
+      {{ tour.description }}
+    </p>
+    </ui-card-header>
+
+    <!-- Tour Info Grid -->
+    <div class="grid grid-cols-2 gap-4 py-3 border-y border-border/50">
+      <div class="flex items-center gap-2 text-sm">
+        <div class="p-1.5 rounded-full bg-muted">
+          <lucide-icon
+            [img]="Users"
+            class="w-3 h-3 text-muted-foreground"
+          ></lucide-icon>
+        </div>
+        <span class="text-card-foreground font-medium">{{
+          tour.capacity
+        }}</span>
+      </div>
+
+      <div class="flex items-center gap-2 text-sm">
+        <div class="p-1.5 rounded-full bg-muted">
+          <lucide-icon
+            [img]="Clock"
+            class="w-3 h-3 text-muted-foreground"
+          ></lucide-icon>
+        </div>
+        <span class="text-card-foreground font-medium">{{
+          tour.duration
+        }}</span>
+      </div>
+    </div>
+    <!-- Rating Section -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1">
+          @for (star of [1,2,3,4,5]; track star) {
+          <lucide-angular
+            [img]="Star"
+            [class]="getStarClasses(star)"
+          ></lucide-angular>
+          }
+        </div>
+        <span class="font-bold text-card-foreground">{{ tour.rating }}</span>
+        <span class="text-muted-foreground text-sm"
+          >({{ tour.reviews }} reviews)</span
+        >
+      </div>
+    </div>
+
+    <!-- Available times -->
+
+    <div>
+      <div class="flex items-center gap-2 mb-3">
+        <lucide-angular
+          [img]="Calendar"
+          class="w-4 h-4 text-muted-foreground"
+        ></lucide-angular>
+        <p class="text-sm font-semibold text-card-foreground">
+          Available Times
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        @for (time of tour.availableTimes; track time) {
+        <span
+          class="text-xs bg-gradient-to-r from-muted to-muted/80 text-muted-foreground px-3 py-1.5 rounded-full border border-border/50 hover:border-primary/30 transition-colors duration-300"
+        >
+          {{ time }}
+        </span>
+        }
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+
+    <div class="flex gap-3 pt-2">
+        <button class="flex-1 h-11 font-medium hover:shadow-lg transition-all duration-300 bg-card text-card-foreground border border-input hover:bg-muted/50 shadow-custom-sm hover:shadow-custom-md">
+            View Details
+        </button>
+        <button class="flex-1 h-11 font-semibold hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 bg-gradient-to-r from-primary to-warning hover:from-primary/90 hover:to-warning/90 bg-primary text-primary-foreground hover:bg-primary/90 shadow-custom-sm hover:shadow-custom-md">
+            📅 Book Now
+        </button>
+    </div>
+  </ui-card-content>
+</ui-card>

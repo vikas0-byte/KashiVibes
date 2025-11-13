@@ -1,0 +1,137 @@
+<footer class="footer text-white relative">
+  <div class="container mx-auto px-4 py-12">
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
+      <!-- Company Info -->
+      <div class="lg:col-span-1">
+        <div class="mb-6">
+          <a routerLink="/" class="inline-block">
+            <img [src]="kashiChaloLogo" alt="Kashi Chalo" class="h-10 md:h-12 w-32 md:w-40 bg-gradient-to-r from-primary to-warning rounded-lg flex items-center justify-center text-white font-bold tracking-wide shadow-md group-hover:shadow-lg transition-shadow" />
+          </a>
+        </div>
+
+        <p class="text-palegold leading-relaxed mb-6 text-justify">
+          Your trusted partner for spiritual journeys in the holy city of
+          Varanasi. Experience authentic cultural immersion, sacred boat rides,
+          and meaningful pilgrimages with our expert local guides.
+        </p>
+        <div class="flex gap-3">
+          <a
+            *ngFor="let social of socialLinks"
+            [routerLink]="social.href"
+            class="btn-social inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-accent transition-all duration-300 hover:bg-accent hover:text-secondary hover:-translate-y-1;"
+            [attr.aria-label]="social.name"
+          >
+            <i [class]="'fab ' + social.icon"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="lg:col-span-1">
+        <h5
+          class="text-accent font-semibold text-2xl mb-6 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-10 after:h-1 after:bg-accent after:rounded"
+        >
+          Quick Links
+        </h5>
+        <ul class="space-y-3">
+          <li *ngFor="let link of quickLinks">
+            <a
+              [routerLink]="link.href"
+              class="footer-link"
+            >
+              <i [class]="'fas ' + link.icon + ' mr-3 text-accent'"></i>
+              {{ link.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Our Services -->
+      <div class="lg:col-span-1">
+        <h5 class="text-accent font-semibold text-2xl mb-6 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-10 after:h-1 after:bg-accent after:rounded">Our Services</h5>
+        <ul class="space-y-3">
+          <li *ngFor="let service of services">
+            <a
+              [routerLink]="service.href"
+              class="footer-link"
+            >
+              <i [class]="'fas ' + service.icon + ' mr-3 text-accent'"></i>
+              {{ service.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="lg:col-span-1">
+        <h5 class="text-accent font-semibold mb-6 text-2xl relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-10 after:h-1 after:bg-accent after:rounded">Contact Us</h5>
+        <div class="space-y-4">
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot contact-icon"></i>
+            <span class="text-palegold"
+              >123, Dashashwameeth Ghat<br />Varanasi, Uttar Pradesh<br />India
+              - 221001</span
+            >
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-phone contact-icon"></i>
+            <span class="text-palegold">+91 98765 43210<br />+91 87654 32109</span>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope contact-icon"></i>
+            <span class="text-palegold"
+              >info&#64;kashichalo.com<br />bookings&#64;kashichalo.com</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular Tours -->
+    <div class="border-t border-b border-white/20 py-8 text-center">
+      <h5 class="text-accent font-semibold mb-6 text-2xl">Popular Tours</h5>
+      <div class="flex flex-wrap justify-center gap-3">
+        <div
+          *ngFor="let tour of popularTours"
+          class="tour-badge"
+        >
+          {{ tour }}
+      </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div
+      class="flex flex-col lg:flex-row justify-between items-center py-6"
+    >
+      <div class="text-palegold text-sm mb-4 lg:mb-0">
+        © {{ currentYear }} kashichalo.com All rights reserved
+      </div>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <a routerLink="/" class="hover:text-accent transition-colors text-palegold"
+          >Privacy Policy</a
+        >
+        <a routerLink="/" class="hover:text-accent transition-colors text-palegold"
+          >Terms of Services</a
+        >
+        <a routerLink="/" class="hover:text-accent transition-colors text-palegold"
+          >Disclaimer</a
+        >
+      </div>
+    </div>
+
+    <!-- Service Badges -->
+    <div class="badges flex flex-wrap justify-center mt-6">
+      <div
+        *ngFor="let badge of badges"
+        class="service-badge"
+      >
+        <i [class]="'fas ' + badge.icon "></i> {{ badge.text }}
+    </div>
+    </div>
+  </div>
+
+  <!-- Decorative Bottom Border -->
+  <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary"></div>
+</footer>

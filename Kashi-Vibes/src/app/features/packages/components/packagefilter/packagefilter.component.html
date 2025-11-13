@@ -1,0 +1,234 @@
+<div class="space-y-6">
+  <!-- Custom Package CTA -->
+  <div class="rounded-lg border shadow-sm filter-card bg-gradient-spiritual text-white p-6">
+    <div class="text-center">
+      <lucide-icon [img]="sparklesIcon" class="h-8 w-8 mx-auto mb-3"></lucide-icon>
+      <h3 class="font-semibold mb-2">Create Custom Package</h3>
+      <p class="text-sm opacity-90 mb-4">Design your perfect spiritual journey</p>
+      <button 
+        (click)="onCustomPackage.emit()"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 w-full"
+      >
+        Get Started
+      </button>
+    </div>
+  </div>
+
+  <!-- Filter Header -->
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm filter-card">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <lucide-icon [img]="filterIcon" class="h-5 w-5"></lucide-icon>
+        <h3 class="font-semibold">Filters</h3>
+        @if (getActiveFilterCount() > 0) {
+          <app-badge variant="secondary">{{ getActiveFilterCount() }}</app-badge>
+        }
+      </div>
+      @if (getActiveFilterCount() > 0) {
+        <button 
+          (click)="clearAllFilters()"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+        >
+          Clear All
+        </button>
+      }
+    </div>
+
+    <!-- Price Range Slider -->
+    <div class="mb-6">
+      <h4 class="font-medium mb-3">Price Range</h4>
+      <div class="px-2">
+        <app-slider
+          [value]="sliderValue"
+          (valueChange)="handlePriceRangeChange($event)"
+          [max]="50000"
+          [min]="3000"
+          [step]="1000"
+          class="w-full"
+        ></app-slider>
+        <div class="flex justify-between text-sm text-muted-foreground mt-2">
+          <span>₹{{ getPriceRangeDisplay()[0].toLocaleString() }}</span>
+          <span>₹{{ getPriceRangeDisplay()[1].toLocaleString() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <app-separator></app-separator>
+
+    <!-- Duration Filter -->
+    <div class="mb-6">
+      <h4 class="font-medium mb-3">Tour Duration</h4>
+      <div class="space-y-3">
+        @for (item of filterData.duration; track item.id) {
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <app-checkbox
+                [id]="'duration-' + item.id"
+                [checked]="selectedFilters.duration.includes(item.id)"
+                (checkedChange)="handleFilterChange('duration', item.id, $event)"
+              ></app-checkbox>
+              <label 
+                [for]="'duration-' + item.id"
+                class="text-sm cursor-pointer"
+              >
+                {{ item.label }}
+              </label>
+            </div>
+            <span class="text-xs text-muted-foreground">({{ item.count }})</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-separator></app-separator>
+
+    <!-- Price Filter -->
+    <div class="mb-6 mt-6">
+      <h4 class="font-medium mb-3">Price Range</h4>
+      <div class="space-y-3">
+        @for (item of filterData.price; track item.id) {
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <app-checkbox
+                [id]="'price-' + item.id"
+                [checked]="selectedFilters.price.includes(item.id)"
+                (checkedChange)="handleFilterChange('price', item.id, $event)"
+              ></app-checkbox>
+              <label 
+                [for]="'price-' + item.id"
+                class="text-sm cursor-pointer"
+              >
+                {{ item.label }}
+              </label>
+            </div>
+            <span class="text-xs text-muted-foreground">({{ item.count }})</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-separator></app-separator>
+
+    <!-- Category Filter -->
+    <div class="mb-6 mt-6">
+      <h4 class="font-medium mb-3">Tour Category</h4>
+      <div class="space-y-3">
+        @for (item of filterData.category; track item.id) {
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <app-checkbox
+                [id]="'category-' + item.id"
+                [checked]="selectedFilters.category.includes(item.id)"
+                (checkedChange)="handleFilterChange('category', item.id, $event)"
+              ></app-checkbox>
+              <label 
+                [for]="'category-' + item.id"
+                class="text-sm cursor-pointer"
+              >
+                {{ item.label }}
+              </label>
+            </div>
+            <span class="text-xs text-muted-foreground">({{ item.count }})</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-separator></app-separator>
+
+    <!-- Location Filter -->
+    <div class="mt-6">
+      <h4 class="font-medium mb-3">Destinations</h4>
+      <div class="space-y-3">
+        @for (item of filterData.location; track item.id) {
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <app-checkbox
+                [id]="'location-' + item.id"
+                [checked]="selectedFilters.location.includes(item.id)"
+                (checkedChange)="handleFilterChange('location', item.id, $event)"
+              ></app-checkbox>
+              <label 
+                [for]="'location-' + item.id"
+                class="text-sm cursor-pointer"
+              >
+                {{ item.label }}
+              </label>
+            </div>
+            <span class="text-xs text-muted-foreground">({{ item.count }})</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Popular Packages -->
+  <div class="filter-card rounded-lg border bg-card text-card-foreground shadow-sm">
+    <div class="flex items-center gap-2 mb-4">
+      <lucide-icon [img]="starIcon" class="h-5 w-5 text-warning"></lucide-icon>
+      <h3 class="font-semibold">Most Popular</h3>
+    </div>
+    <div class="space-y-3">
+      <div class="text-sm">
+        <div class="font-medium">Varanasi 5N/6D</div>
+        <div class="text-muted-foreground">Starting ₹18,500</div>
+      </div>
+      <div class="text-sm">
+        <div class="font-medium">Street Food & Hidden Gems</div>
+        <div class="text-muted-foreground">Starting ₹3,200</div>
+      </div>
+      <div class="text-sm">
+        <div class="font-medium">Varanasi to Bodhgaya</div>
+        <div class="text-muted-foreground">Starting ₹22,800</div>
+      </div>
+    </div>
+  </div>
+  <!-- why choose us -->
+  <div class="filter-card bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+        <h3 class="font-semibold mb-4">Why Choose Us?</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-2">
+            <span class="text-primary">✓</span>
+            <span>Expert local guides</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-primary">✓</span>
+            <span>24/7 customer support</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-primary">✓</span>
+            <span>Best price guarantee</span>
+          </div>
+          <div class="flex gap-2">
+            <span class="text-primary">✓</span>
+            <span>Flexible cancellation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special offer -->
+
+      <div class="filter-card bg-gradient-spiritual text-white">
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 mb-3">
+            <lucide-icon [img]="sparklesIcon" class="h-6 w-6"></lucide-icon>
+          </div>
+          <h3 class="font-semibold mb-2">Early Bird Offer</h3>
+          <p class="text-sm opacity-90 mb-3">Book 30 days in advance and save up to 20%</p>
+          <div class="text-2xl font-bold mb-1">20% OFF</div>
+          <p class="text-xs opacity-75">On selected packages</p>
+        </div>
+      </div>
+
+      <!-- need help -->
+
+       <div class="filter-card">
+        <h3 class="font-semibold mb-3">Need Help?</h3>
+        <p class="text-sm text-muted-foreground mb-4">
+          Our travel experts are here to help you plan your perfect journey.
+        </p>
+        <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full">
+          Contact Us
+        </button>
+      </div>
+</div>

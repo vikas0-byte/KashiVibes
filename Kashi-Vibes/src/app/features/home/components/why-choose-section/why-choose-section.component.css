@@ -1,0 +1,63 @@
+/* Feature Card Styles */
+.feature-card {
+  background-color: hsl(var(--card));
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid hsl(var(--border) / 0.5);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+              0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-accent));
+  transition: all 0.3s ease;
+  will-change: height, opacity;
+}
+
+.feature-card:hover::after {
+  height: 100%;
+  opacity: 0.1;
+}
+
+/* Feature Card Icon Wrapper */
+.features-icon {
+  width: 6rem;           /* 24 * 0.25rem = 6rem */
+  height: 6rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.features-icon::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: rgba(230, 126, 34, 0.1); /* #e67e22 = primary orange */
+  border-radius: 9999px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  will-change: transform;
+}

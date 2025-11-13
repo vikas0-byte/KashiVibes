@@ -1,0 +1,97 @@
+<section class="bg-background">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2
+        class="text-4xl md:text-5xl font-bold mb-6"
+      >
+        Our <span class="text-primary">Premium</span> Experiences
+      </h2>
+      <p
+        class="text-xl text-muted-foreground max-w-3xl mx-auto"
+      >
+        Carefully crafted journeys that blend spirituality, culture, and
+        authentic local experiences
+      </p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
+      @for (service of services; track service.id; let index = $index) {
+      <div class="flex flex-col gap-8" [class.lg:flex-col-reverse]="index % 2 === 1">
+        <!-- image -->
+
+        <div class="relative overflow-hidden rounded-2xl shadow-medium group">
+          <img
+            [src]="service.image"
+            [alt]="service.title"
+            class="w-full h-80 object-cover transition-smooth group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+          ></div>
+          <div class="absolute bottom-6 left-6 text-white">
+            <div class="text-2xl font-bold mb-2">{{ service.price }}</div>
+          </div>
+        </div>
+        <!-- content -->
+        <div class="space-y-6">
+          <div>
+            <h3 class="text-3xl font-bold mb-4 text-foreground">
+              {{ service.title }}
+            </h3>
+            <p class="text-lg text-muted-foreground leading-relaxed text-justify">
+              {{ service.description }}
+            </p>
+          </div>
+
+          <!-- Tour Details -->
+
+          <div class="flex flex-wrap gap-6">
+            <div class="flex items-center gap-2 text-muted-foreground">
+              <lucide-icon
+                [img]="clock"
+                class="w-5 h-5 text-primary"
+              ></lucide-icon>
+              <span>{{ service.duration }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-muted-foreground">
+              <lucide-icon
+                [img]="Users"
+                class="w-5 h-5 text-primary"
+              ></lucide-icon>
+              <span>{{ service.groupSize }}</span>
+            </div>
+            <div class="flex items-center gap-2 text-muted-foreground">
+              <lucide-icon
+                [img]="Camera"
+                class="w-5 h-5 text-primary"
+              ></lucide-icon>
+              <span>Photo Memories</span>
+            </div>
+          </div>
+
+          <!-- Highlights -->
+
+          <div>
+            <h4 class="font-semibold mb-3 text-foreground">Tour Highlights:</h4>
+            <div class="grid grid-cols-2 gap-2">
+                @for (highlight of service.highlights; track highlight) {
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-primary rounded-full"></div>
+                        <span class="text-muted-foreground text-sm">{{ highlight }}</span>
+                    </div>
+                }
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <button class="bg-gradient-primary text-primary-foreground hover:shadow-medium transition-smooth hover:-translate-y-0.5 h-11 rounded-md px-8">
+                Book Now
+            </button>
+            <button class="border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md px-8">
+                Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

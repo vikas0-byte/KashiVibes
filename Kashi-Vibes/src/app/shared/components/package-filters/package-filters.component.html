@@ -1,0 +1,171 @@
+<div class="space-y-6">
+  <!-- Custom Package CTA -->
+  @if (config.showCustomPackage) {
+    <div class="rounded-lg border shadow-sm filter-card bg-gradient-spiritual text-white p-6">
+      <div class="text-center">
+        <lucide-icon [img]="sparklesIcon" class="h-8 w-8 mx-auto mb-3"></lucide-icon>
+        <h3 class="font-semibold mb-2">{{ config.customPackageConfig?.title }}</h3>
+        <p class="text-sm opacity-90 mb-4">{{ config.customPackageConfig?.description }}</p>
+        <button 
+          (click)="onCustomPackage.emit()"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2 w-full"
+        >
+          {{ config.customPackageConfig?.buttonText }}
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Filter Header -->
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm filter-card">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <lucide-icon [img]="filterIcon" class="h-5 w-5"></lucide-icon>
+        <h3 class="font-semibold">Filters</h3>
+        @if (getActiveFilterCount() > 0) {
+          <app-badge variant="secondary">{{ getActiveFilterCount() }}</app-badge>
+        }
+      </div>
+      @if (getActiveFilterCount() > 0) {
+        <button 
+          (click)="clearAllFilters()"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+        >
+          Clear All
+        </button>
+      }
+    </div>
+
+    <!-- Price Range Slider -->
+    @if (filterData.priceRange) {
+      <div class="mb-6">
+        <h4 class="font-medium mb-3">Price Range</h4>
+        <div class="px-2">
+          <app-slider
+            [value]="sliderValue()"
+            (valueChange)="handlePriceRangeChange($event)"
+            [max]="getPriceRangeConfig().max"
+            [min]="getPriceRangeConfig().min"
+            [step]="getPriceRangeConfig().step"
+            class="w-full"
+          ></app-slider>
+          <div class="flex justify-between text-sm text-muted-foreground mt-2">
+            <span>₹{{ getPriceRangeDisplay()[0].toLocaleString() }}</span>
+            <span>₹{{ getPriceRangeDisplay()[1].toLocaleString() }}</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Dynamic Filter Categories -->
+    @for (category of filterData.categories; track trackByCategory($index, category)) {
+      @if ($index > 0) {
+        <app-separator></app-separator>
+      }
+      
+      <div class="mb-6" [class.mt-6]="$index > 0">
+        <h4 class="font-medium mb-3">{{ category.label }}</h4>
+        <div class="space-y-3">
+          @for (item of category.items; track trackByFilterItem($index, item)) {
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <app-checkbox
+                  [id]="category.key + '-' + item.id"
+                  [checked]="getFilterArray(category.key).includes(item.id)"
+                  (checkedChange)="handleFilterChange(category.key, item.id, $event)"
+                ></app-checkbox>
+                <label 
+                  [for]="category.key + '-' + item.id"
+                  class="text-sm cursor-pointer"
+                >
+                  {{ item.label }}
+                </label>
+              </div>
+              <span class="text-xs text-muted-foreground">({{ item.count }})</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Popular Packages -->
+  @if (config.showPopularPackages) {
+    <div class="filter-card rounded-lg border bg-card text-card-foreground shadow-sm">
+      <div class="flex items-center gap-2 mb-4">
+        <lucide-icon [img]="starIcon" class="h-5 w-5 text-warning"></lucide-icon>
+        <h3 class="font-semibold">Most Popular</h3>
+      </div>
+      <div class="space-y-3">
+        <div class="text-sm">
+          <div class="font-medium">Varanasi 5N/6D</div>
+          <div class="text-muted-foreground">Starting ₹18,500</div>
+        </div>
+        <div class="text-sm">
+          <div class="font-medium">Street Food & Hidden Gems</div>
+          <div class="text-muted-foreground">Starting ₹3,200</div>
+        </div>
+        <div class="text-sm">
+          <div class="font-medium">Varanasi to Bodhgaya</div>
+          <div class="text-muted-foreground">Starting ₹22,800</div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Why Choose Us -->
+  @if (config.showWhyChooseUs) {
+    <div class="filter-card bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 p-4 rounded-lg">
+      <h3 class="font-semibold mb-4">Why Choose Us?</h3>
+      <div class="space-y-3 text-sm">
+        <div class="flex gap-2">
+          <span class="text-primary">✓</span>
+          <span>Expert local guides</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-primary">✓</span>
+          <span>24/7 customer support</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-primary">✓</span>
+          <span>Best price guarantee</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="text-primary">✓</span>
+          <span>Flexible cancellation</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Special Offer -->
+  @if (config.showSpecialOffer) {
+    <div class="filter-card bg-gradient-spiritual text-white p-6 rounded-lg">
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 mb-3">
+          <lucide-icon [img]="sparklesIcon" class="h-6 w-6"></lucide-icon>
+        </div>
+        <h3 class="font-semibold mb-2">Early Bird Offer</h3>
+        <p class="text-sm opacity-90 mb-3">Book 30 days in advance and save up to 20%</p>
+        <div class="text-2xl font-bold mb-1">20% OFF</div>
+        <p class="text-xs opacity-75">On selected packages</p>
+      </div>
+    </div>
+  }
+
+  <!-- Need Help -->
+  @if (config.showNeedHelp) {
+    <div class="filter-card p-4 rounded-lg border bg-card">
+      <h3 class="font-semibold mb-3">Need Help?</h3>
+      <p class="text-sm text-muted-foreground mb-4">
+        Our travel experts are here to help you plan your perfect journey.
+      </p>
+      <button 
+        (click)="onContactUs.emit()"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full"
+      >
+        Contact Us
+      </button>
+    </div>
+  }
+</div>

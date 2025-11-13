@@ -1,0 +1,85 @@
+<section [ngStyle]="{'background': 'linear-gradient(145deg, #ffffff 0%, #fdf6e3 100%)'}">
+  <div class="container mx-auto p-6">
+    <!-- section title -->
+    <div class="section-title">
+      <h2>What Our Travelers Say</h2>
+      <p>
+        Read authentic reviews from travelers who experienced the spiritual
+        magic of Varanasi with us. Their journeys speak volumes about our
+        commitment to creating unforgettable memories.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      @for (testimonial of testimonials; track testimonial.id; let index =
+      $index) {
+      <div
+        [ngStyle]="{ 
+            'background': 'linear-gradient(145deg, #ffffff 0%, #fdf6e3 100%)',
+            'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)',
+            'border-radius': '1rem',
+            'padding': '4rem',
+            'position': 'relative',
+            'overflow': 'hidden',
+            'transition': '0.3s ease-out',
+            'border': '1px solid rgba(230, 126, 34, 0.1)'
+        }"
+        class="testimonial-card animate-fade-in"
+        [style.animation-delay]="index * 0.2 + 's'"
+        (mouseenter)="onMouseEnter($event)"
+        (mouseleave)="onMouseLeave($event)"
+      >
+        <!-- Quote Icon -->
+
+        <div class="quote-icon-container">
+          <lucide-icon
+            [img]="quoteIcon"
+            class="w-12 h-12 quote-icon"
+          ></lucide-icon>
+        </div>
+
+        <!-- Testimonial Text  -->
+
+        <blockquote class="line-clamp-3 testimonial-text text-justify">
+          "{{ testimonial.text }}"
+        </blockquote>
+
+        <!-- Rating -->
+
+        <div class="Rating flex items-center gap-1">
+          @for (star of getStars(testimonial.rating); track $index) {
+          <lucide-icon
+            [img]="starIcon"
+            class="star-icon w-5 h-5"
+            [attr.fill]="'currentColor'"
+            [attr.stroke]="'currentColor'"
+          ></lucide-icon>
+          }
+        </div>
+
+        <!-- Author Info -->
+
+        <div class="author-info">
+          <div
+            class="profile-img"
+            [style.background-image]="'url(' + testimonial.image + ')'"
+          ></div>
+
+          <!-- Author Details -->
+
+          <div>
+            <div class="author-details">
+              {{ testimonial.name }}
+            </div>
+            <div class="author-location">{{ testimonial.location }}</div>
+            <div class="author-tour">{{ testimonial.tour }}</div>
+          </div>
+        </div>
+
+        <!-- Decorative Element -->
+
+        <div class="decorative-element"></div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

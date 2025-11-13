@@ -1,0 +1,70 @@
+<section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-spiritual opacity-5"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="section-title animate-fade-in">
+          <h2>
+            <span class="text-destructive">Taxi & Cab</span> in Varanasi (Kashi)
+          </h2>
+          <p class="mt-6">
+            Choose from our premium fleet of vehicles for your spiritual journey. 
+            We provide well-maintained, comfortable vehicles with experienced drivers.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mt-12">
+          <div
+            *ngFor="let vehicle of vehicles; let index = index"
+            class="feature-card group animate-scale-in"
+            [style.animation-delay]="index * 0.1 + 's'"
+          >
+            <div class="relative overflow-hidden rounded-xl mb-6 bg-gradient-to-br from-muted/30 to-background">
+              <div class="aspect-[4/3] flex items-center justify-center p-4">
+                <img
+                  [src]="vehicle.image"
+                  [alt]="vehicle.name"
+                  class="w-full h-full object-contain transition-smooth group-hover:scale-110"
+                />
+              </div>
+              <div class="absolute top-3 right-3 bg-gradient-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-medium">
+                {{vehicle.capacity}}
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-foreground mb-2 font-heading h-14">
+              {{vehicle.name}}
+            </h3>
+            <p class="text-sm text-muted-foreground mb-4 h-11">
+              {{vehicle.description}}
+            </p>
+
+            <button 
+              class="w-full bg-gradient-primary text-primary-foreground border-0 hover:shadow-glow transition-smooth px-4 py-2 rounded-md text-sm"
+            >
+              Book Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 animate-fade-in-up">
+          <div
+            *ngFor="let feature of features; let index = index"
+            class="flex flex-col items-center gap-3 p-6 rounded-xl bg-card shadow-soft hover:shadow-medium transition-smooth"
+            [style.animation-delay]="0.5 + index * 0.1 + 's'"
+          >
+            <div class="w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-glow">
+              <ng-container [ngSwitch]="feature.label">
+                <lucide-icon [img]="CarIcon" *ngSwitchCase="'Well Maintained Fleet'" class="w-6 h-6 text-primary-foreground"></lucide-icon>
+                <lucide-icon [img]="UsersIcon" *ngSwitchCase="'Experienced Drivers'" class="w-6 h-6 text-primary-foreground"></lucide-icon>
+                <lucide-icon [img]="ShieldIcon" *ngSwitchCase="'Safe & Secure'" class="w-6 h-6 text-primary-foreground"></lucide-icon>
+                <lucide-icon [img]="ClockIcon" *ngSwitchCase="'24/7 Service'" class="w-6 h-6 text-primary-foreground"></lucide-icon>
+              </ng-container>
+            </div>
+            <p class="text-sm font-semibold text-center text-foreground">
+              {{feature.label}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,85 @@
+<section
+  class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+  [style.background-image]="'url(' + heroBg + ')'"
+>
+  <!-- overlay -->
+  <div class="absolute inset-0 bg-black/60"></div>
+  <!-- Content -->
+
+  <div class="relative z-10 container mx-auto px-4 text-center">
+    <!-- OM SYMBOL -->
+
+    <!-- <div class="mb-6 flex justify-center">
+      <div
+        class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20"
+      >
+        <img
+          [src]="omSymbol"
+          alt="om symbol"
+          class="w-full h-full object-contain filter brightness-110"
+        />
+      </div>
+    </div> -->
+    <!-- Spiritual Journey Badge -->
+    <div class="mb-8">
+      <div
+        class="inline-flex items-center px-6 py-2 rounded-full border-2 border-accent text-accent font-medium text-sm tracking-wide uppercase"
+      >
+        <span class="w-2 h-2 bg-accent rounded-full mr-3"></span>
+        YOUR SPIRITUAL JOURNEY STARTS HERE
+        <span class="w-2 h-2 bg-accent rounded-full ml-3"></span>
+      </div>
+    </div>
+    <!-- Main Heading -->
+
+    <h1
+      class="text-5xl md:text-7xl font-bold text-white mb-6 font-heading leading-tight"
+    >
+      Discover the Soul of&nbsp;
+      <span class="text-transparent bg-clip-text bg-gradient-primary">
+        Kashi
+      </span>
+    </h1>
+
+    <!-- Description -->
+
+    <p
+      class="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed"
+    >
+      Book stays, cabs, boat rides & guided tours in the Holy City — all at one
+      place.
+    </p>
+
+    <!-- Search Bar -->
+
+    <div class="mb-12">
+      <app-search-bar
+        placeholder="Search destination, temple or ride..."
+        (onSearch)="handleSearch($event)"
+      ></app-search-bar>
+    </div>
+    <!-- Action Button -->
+
+    <div
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+    >
+      <button
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-primary text-white hover:bg-gradient-secondary shadow-glow transition-all duration-normal hover:scale-105 h-11 text-lg px-10 py-4 rounded-full"
+      >
+        Start Booking
+      </button>
+      <button
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border h-11 text-lg px-10 py-4 rounded-full border-white text-white hover:bg-white hover:text-primary bg-transparent"
+      >
+        Learn More
+      </button>
+    </div>
+    <!-- Statistics -->
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <app-stat-card value="10k+" label="Happy Travelers"/>
+      <app-stat-card value="50+" label="Sacred Destinations"/>
+      <app-stat-card value="24/7" label="Local Support"/>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,289 @@
+@if (viewMode === 'list') {
+  <!-- List View -->
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm package-card flex flex-col md:flex-row overflow-hidden transition-smooth hover:shadow-large">
+    <!-- Image -->
+    <div class="md:w-2/5 relative overflow-hidden group/image">
+      <img
+        [src]="package.image"
+        [alt]="package.title"
+        class="w-full h-64 md:h-full object-cover transition-smooth duration-300 group-hover/image:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+      
+      <div class="absolute top-4 left-4 right-4 flex items-start justify-between z-10">
+        <div class="flex flex-col gap-2">
+          @if (package.featured) {
+            <app-badge class="!bg-warning text-warning-foreground shadow-medium whitespace-nowrap animate-pulse">
+              ⭐ Featured
+            </app-badge>
+          }
+        </div>
+        @if (discountPercentage > 0) {
+          <app-badge class="bg-destructive text-destructive-foreground shadow-medium whitespace-nowrap">
+            {{ discountPercentage }}% Off
+          </app-badge>
+        }
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="md:w-3/5 p-6 md:p-8 flex flex-col justify-between">
+      <div>
+        <!-- Header -->
+        <div class="flex justify-between items-start mb-4">
+          <div class="flex-grow">
+            <app-badge 
+              variant="outline" 
+              class="mb-3 text-xs font-semibold border-2 border-primary/30 text-primary bg-primary/5 hover:bg-primary hover:text-primary-foreground transition-smooth cursor-pointer"
+            >
+              {{ package.category }}
+            </app-badge>
+            <h3 class="text-2xl font-bold mb-3 text-foreground leading-tight hover:text-primary transition-smooth">
+              {{ package.title }}
+            </h3>
+            <div class="flex items-center gap-5 text-sm text-muted-foreground">
+              <div class="flex items-center gap-2">
+                <lucide-icon [img]="mapPinIcon" class="h-4 w-4 text-primary flex-shrink-0"></lucide-icon>
+                <span class="font-medium">{{ package.location }}</span>
+              </div>
+              <div class="flex items-center gap-2 whitespace-nowrap">
+                <lucide-icon [img]="calendarIcon" class="h-4 w-4 text-primary flex-shrink-0"></lucide-icon>
+                <span class="font-medium">{{ package.duration }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-2 ml-4">
+            <app-button
+              variant="ghost"
+              size="sm"
+              (click)="onWishlistToggle($event)"
+              class="h-10 w-10 p-0"
+            >
+              <lucide-icon 
+                [img]="heartIcon" 
+                [class]="isWishlisted ? 'fill-red-500 text-red-500' : ''"
+                class="h-5 w-5"
+              ></lucide-icon>
+            </app-button>
+            <app-button 
+              variant="ghost"
+              size="sm"
+              (click)="onShareClick($event)"
+              class="h-10 w-10 p-0"
+            >
+              <lucide-icon [img]="shareIcon" class="h-5 w-5"></lucide-icon>
+            </app-button>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-sm text-muted-foreground mb-5 leading-relaxed line-clamp-2 text-left">
+          {{ package.description }}
+        </p>
+
+        <!-- Highlights -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+          @for (highlight of package.highlights.slice(0, 4); track $index) {
+            <div class="flex items-start gap-2.5 text-sm">
+              <lucide-icon [img]="checkCircleIcon" class="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5"></lucide-icon>
+              <span class="text-foreground/80">{{ highlight }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pt-5 border-t border-border">
+        <div>
+          <!-- Rating -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex items-center gap-1.5 bg-warning/15 px-2.5 py-1.5 rounded-lg border border-warning/30">
+              <lucide-icon [img]="starIcon" class="h-4 w-4 fill-warning text-warning"></lucide-icon>
+              <span class="text-sm font-bold text-foreground">{{ package.rating }}</span>
+            </div>
+            <span class="text-sm text-gray-600 font-medium">
+              ({{ package.reviews }} reviews)
+            </span>
+          </div>
+          
+          <!-- Price -->
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-bold text-primary">
+              ₹{{ package.price.toLocaleString() }}
+            </span>
+            @if (package.originalPrice > package.price) {
+              <span class="text-sm text-muted-foreground line-through">
+                ₹{{ package.originalPrice.toLocaleString() }}
+              </span>
+            }
+            <span class="text-sm text-muted-foreground font-medium">per person</span>
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="flex gap-3">
+          <app-button (click)="onViewDetails($event)" variant="outline" size="lg" class="font-medium">
+            View Details
+          </app-button>
+          <app-button (click)="onBookNow($event)" size="lg" class="font-medium shadow-soft hover:shadow-medium transition-smooth">
+            Book Now
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <!-- Grid View -->
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm package-card group cursor-pointer overflow-hidden h-full flex flex-col transition-smooth hover:shadow-large hover:-translate-y-1">
+    <!-- Image -->
+    <div class="relative overflow-hidden h-56">
+      <img
+        [src]="package.image"
+        [alt]="package.title"
+        class="w-full h-full object-cover transition-smooth group-hover:scale-110"
+      />
+      
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      
+      <!-- Badges -->
+      <div class="absolute top-4 left-4 right-4 flex items-start justify-between z-10">
+        <div class="flex flex-col gap-2">
+          @if (package.featured) {
+            <app-badge class="bg-warning text-warning-foreground shadow-medium whitespace-nowrap animate-pulse">
+              ⭐ Featured
+            </app-badge>
+          }
+          @if (discountPercentage > 0) {
+            <app-badge class="bg-destructive text-destructive-foreground shadow-medium whitespace-nowrap">
+              {{ discountPercentage }}% Off
+            </app-badge>
+          }
+        </div>
+      </div>
+
+      <!-- Wishlist & Share -->
+      <div class="absolute top-4 right-4 flex gap-2 z-10">
+        <app-button
+          variant="secondary"
+          size="sm"
+          (click)="onWishlistToggle($event)"
+          class="h-9 w-9 p-0 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white backdrop-blur-sm"
+        >
+          <lucide-icon 
+            [img]="heartIcon" 
+            [class]="isWishlisted ? 'fill-destructive text-destructive' : ''"
+            class="h-4 w-4"
+          ></lucide-icon>
+        </app-button>
+        <app-button
+          variant="secondary"
+          size="sm"
+          (click)="onShareClick($event)"
+          class="h-9 w-9 p-0 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white backdrop-blur-sm"
+        >
+          <lucide-icon [img]="shareIcon" class="h-4 w-4"></lucide-icon>
+        </app-button>
+      </div>
+
+      <!-- Quick Info Overlay -->
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-smooth">
+        <div class="flex items-center justify-between text-xs text-white">
+          <div class="flex items-center gap-1.5">
+            <lucide-icon [img]="usersIcon" class="h-4 w-4"></lucide-icon>
+            <span class="font-medium">Max 12 people</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <lucide-icon [img]="clockIcon" class="h-4 w-4"></lucide-icon>
+            <span class="font-medium">Instant booking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6 flex flex-col flex-grow">
+      <!-- Header -->
+      <div class="mb-4">
+        <app-badge 
+          variant="outline" 
+          class="mb-3 text-xs font-semibold border-2 border-primary/30 text-primary bg-primary/5 hover:bg-primary hover:text-primary-foreground transition-smooth cursor-pointer"
+        >
+          {{ package.category }}
+        </app-badge>
+        <h3 class="font-bold text-xl mb-3 line-clamp-2 leading-tight text-foreground group-hover:text-primary transition-smooth">
+          {{ package.title }}
+        </h3>
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <div class="flex items-center gap-1.5">
+            <lucide-icon [img]="mapPinIcon" class="h-4 w-4 text-primary flex-shrink-0"></lucide-icon>
+            <span class="font-medium">{{ package.location }}</span>
+          </div>
+          <div class="flex items-center gap-1.5 whitespace-nowrap">
+            <lucide-icon [img]="calendarIcon" class="h-4 w-4 text-primary flex-shrink-0"></lucide-icon>
+            <span class="font-medium">{{ package.duration }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2 text-left">
+        {{ package.description }}
+      </p>
+
+      <!-- Highlights -->
+      <div class="mb-5 pb-5 border-b border-border">
+        <div class="space-y-2">
+          @for (highlight of package.highlights.slice(0, 2); track $index) {
+            <div class="flex items-start gap-2.5 text-sm">
+              <lucide-icon [img]="checkCircleIcon" class="h-4 w-4 text-success flex-shrink-0 mt-0.5"></lucide-icon>
+              <span class="line-clamp-1 text-foreground/80">{{ highlight }}</span>
+            </div>
+          }
+        </div>
+        @if (package.highlights.length > 2) {
+          <p class="text-xs text-primary font-medium mt-3">
+            +{{ package.highlights.length - 2 }} more highlights included
+          </p>
+        }
+      </div>
+
+      <!-- Footer - Rating & Price -->
+      <div class="mt-auto">
+        <!-- Rating -->
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex items-center gap-1.5 bg-warning/15 px-2.5 py-1.5 rounded-lg border border-warning/30">
+            <lucide-icon [img]="starIcon" class="h-4 w-4 fill-warning text-warning"></lucide-icon>
+            <span class="text-sm font-bold text-foreground">{{ package.rating }}</span>
+          </div>
+          <span class="text-sm text-muted-foreground font-medium">
+            ({{ package.reviews }} reviews)
+          </span>
+        </div>
+        
+        <!-- Price & CTA -->
+        <div class="flex items-end justify-between">
+          <div>
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-2xl font-bold text-primary">
+                ₹{{ package.price.toLocaleString() }}
+              </span>
+              @if (package.originalPrice > package.price) {
+                <span class="text-sm text-muted-foreground line-through">
+                  ₹{{ package.originalPrice.toLocaleString() }}
+                </span>
+              }
+            </div>
+            <p class="text-xs text-muted-foreground font-medium">per person</p>
+          </div>
+          <app-button 
+            (click)="onBookNow($event)"
+            class="shrink-0 shadow-soft hover:shadow-medium transition-smooth"
+          >
+            Book Now
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

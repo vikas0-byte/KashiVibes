@@ -1,0 +1,145 @@
+<div 
+  *ngIf="open"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in"
+  (click)="onBackdropClick($event)"
+>
+  <div 
+    class="max-w-4xl w-full mx-4 bg-background rounded-lg overflow-hidden border-0 animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex flex-col md:flex-row">
+      <!-- Left Panel - Orange Gradient -->
+      <div class="w-full md:w-5/12 bg-gradient-hero p-8 md:p-12 text-white flex flex-col justify-center min-h-[300px] md:min-h-[520px]">
+        <h1 class="text-3xl md:text-4xl font-heading font-bold mb-4">
+          Looks like you're new here!
+        </h1>
+        <p class="text-base md:text-lg opacity-90 mb-8">
+          Sign up to get started with your spiritual journey
+        </p>
+        <app-user-illustration></app-user-illustration>
+      </div>
+
+      <!-- Right Panel - Form -->
+      <div class="w-full md:w-7/12 p-8 md:p-12 bg-background">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5" novalidate>
+          <div>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Enter Name"
+              class="w-full h-12 text-base bg-card rounded-md px-4 border transition-colors"
+              [class]="{
+                'border-input focus:outline-none focus:ring-2 focus:ring-ring': !f['name'].errors || !f['name'].touched,
+                'border-destructive': f['name'].errors && f['name'].touched
+              }"
+            />
+            <div *ngIf="f['name'].touched && f['name'].errors" class="text-destructive text-xs mt-1">
+              <div *ngIf="f['name'].errors['required']">Name is required</div>
+              <div *ngIf="f['name'].errors['minlength']">Name must be at least 2 characters</div>
+              <div *ngIf="f['name'].errors['maxlength']">Name cannot exceed 50 characters</div>
+              <div *ngIf="f['name'].errors['onlyLetters']">Name can only contain letters and spaces</div>
+            </div>
+          </div>
+
+          <div>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="Enter Email"
+              class="w-full h-12 text-base bg-card rounded-md px-4 border transition-colors"
+              [class]="{
+                'border-input focus:outline-none focus:ring-2 focus:ring-ring': !f['email'].errors || !f['email'].touched,
+                'border-destructive': f['email'].errors && f['email'].touched
+              }"
+            />
+            <div *ngIf="f['email'].touched && f['email'].errors" class="text-destructive text-xs mt-1">
+              <div *ngIf="f['email'].errors['required']">Email is required</div>
+              <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+            </div>
+          </div>
+
+          <div>
+            <input
+              type="tel"
+              formControlName="mobile"
+              placeholder="Enter Mobile Number"
+              class="w-full h-12 text-base bg-card rounded-md px-4 border transition-colors"
+              [class]="{
+                'border-input focus:outline-none focus:ring-2 focus:ring-ring': !f['mobile'].errors || !f['mobile'].touched,
+                'border-destructive': f['mobile'].errors && f['mobile'].touched
+              }"
+            />
+            <div *ngIf="f['mobile'].touched && f['mobile'].errors" class="text-destructive text-xs mt-1">
+              <div *ngIf="f['mobile'].errors['required']">Mobile number is required</div>
+              <div *ngIf="f['mobile'].errors['mobile']">Please enter a valid 10-digit mobile number</div>
+            </div>
+          </div>
+
+          <div>
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="Enter Password"
+              class="w-full h-12 text-base bg-card rounded-md px-4 border transition-colors"
+              [class]="{
+                'border-input focus:outline-none focus:ring-2 focus:ring-ring': !f['password'].errors || !f['password'].touched,
+                'border-destructive': f['password'].errors && f['password'].touched
+              }"
+            />
+            <div *ngIf="f['password'].touched && f['password'].errors" class="text-destructive text-xs mt-1">
+              <div *ngIf="f['password'].errors['required']">Password is required</div>
+              <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+              <div *ngIf="f['password'].errors['strongPassword']">
+                Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password"
+              class="w-full h-12 text-base bg-card rounded-md px-4 border transition-colors"
+              [class]="{
+                'border-input focus:outline-none focus:ring-2 focus:ring-ring': !f['confirmPassword'].errors || !f['confirmPassword'].touched,
+                'border-destructive': f['confirmPassword'].errors && f['confirmPassword'].touched
+              }"
+            />
+            <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors" class="text-destructive text-xs mt-1">
+              <div *ngIf="f['confirmPassword'].errors['required']">Please confirm your password</div>
+              <div *ngIf="f['confirmPassword'].errors['passwordMismatch']">Passwords do not match</div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="errorMessage" class="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+            <p class="text-destructive text-sm">{{ errorMessage }}</p>
+          </div>
+
+          <p class="text-xs text-muted-foreground">
+            By continuing, you agree to KashiVibes's Terms of Use and Privacy Policy.
+          </p>
+
+          <button
+            type="submit"
+            class="w-full h-12 text-base font-semibold bg-primary/80 hover:bg-primary text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'CREATING ACCOUNT...' : 'CONTINUE' }}
+          </button>
+        </form>
+
+        <div class="mt-6 text-center">
+          <button
+            (click)="onSwitchToLoginClick()"
+            class="text-primary hover:text-primary/80 font-medium text-sm transition-colors"
+            [disabled]="isLoading"
+          >
+            Existing User? Log in
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

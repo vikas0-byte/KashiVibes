@@ -1,0 +1,296 @@
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+    <div class="p-6">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <div class="flex items-center gap-2">
+          <lucide-icon [img]="sparklesIcon" class="h-6 2-6 text-primary"></lucide-icon>
+          <h2 class="text-2xl font-bold">Create Custom Package</h2>
+        </div>
+        <app-button variant="ghost" size="sm" (click)="onClose.emit()">
+          <lucide-icon [img]="xIcon" class="h-4 w-4"></lucide-icon>
+        </app-button>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="flex items-center justify-center mb-8">
+        <div class="flex items-center gap-4">
+          @for (stepNum of [1,2,3,4]; track stepNum) {
+            <div class="flex items-center">
+              <div [class]="getStepClass(stepNum)">
+                @if (stepNum < step()) {
+                  <lucide-icon [img]="checkCircleIcon" class="h-4 w-4"></lucide-icon>
+                } @else {
+                  {{ stepNum }}
+                }
+              </div>
+              @if (stepNum < 4) {
+                <div [class]="getStepLineClass(stepNum)" class="w-12 h-0.5 mx-2"></div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Step Content -->
+      <div class="min-h-[400px]">
+        <!-- Step 1: Destinations -->
+        @if (step() === 1) {
+          <div class="space-y-6">
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold mb-2">Choose Your Destinations</h3>
+              <p class="text-muted-foreground">Select the sacred places you'd like to visit</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              @for (destination of destinations; track destination) {
+                <div
+                  [class]="getDestinationClass(destination)"
+                  (click)="handleDestinationToggle(destination)"
+                >
+                  <div class="flex items-center gap-2">
+                    <lucide-icon [img]="mapPinIcon" size="16"></lucide-icon>
+                    <span class="font-medium">{{ destination }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            @if (formData().destinations.length > 0) {
+              <div class="mt-4">
+                <p class="text-sm font-medium mb-2">Selected destinations:</p>
+                <div class="flex flex-wrap gap-2">
+                  @for (dest of formData().destinations; track dest) {
+                    <app-badge variant="secondary">
+                      {{ dest }}
+                    </app-badge>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Step 2: Trip Details -->
+        @if (step() === 2) {
+          <div class="space-y-6">
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold mb-2">Trip Details</h3>
+              <p class="text-muted-foreground">Tell us about your travel preferences</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Duration -->
+              <div class="space-y-2">
+                <app-label htmlFor="duration">Duration</app-label>
+                <app-select [value]="durationValue()" (valueChange)="onDurationChange($event)">
+                  <app-select-trigger>
+                    <app-select-value [placeholder]="getDurationPlaceholder()"></app-select-value>
+                  </app-select-trigger>
+                  <app-select-content>
+                    <app-select-item value="1-2">1-2 Days</app-select-item>
+                    <app-select-item value="3-4">3-4 Days</app-select-item>
+                    <app-select-item value="5-7">5-7 Days</app-select-item>
+                    <app-select-item value="8-10">8-10 Days</app-select-item>
+                    <app-select-item value="10+">10+ Days</app-select-item>
+                  </app-select-content>
+                </app-select>
+              </div>
+
+              <!-- Travelers -->
+              <div class="space-y-2">
+                <app-label htmlFor="travelers">Number of Travelers</app-label>
+                <app-select [value]="travelersValue()" (valueChange)="onTravelersChange($event)">
+                  <app-select-trigger>
+                    <app-select-value [placeholder]="getTravelersPlaceholder()"></app-select-value>
+                  </app-select-trigger>
+                  <app-select-content>
+                    <app-select-item value="1">1 Person</app-select-item>
+                    <app-select-item value="2">2 People</app-select-item>
+                    <app-select-item value="3-4">3-4 People</app-select-item>
+                    <app-select-item value="5-8">5-8 People</app-select-item>
+                    <app-select-item value="8+">8+ People</app-select-item>
+                  </app-select-content>
+                </app-select>
+              </div>
+
+              <!-- Budget -->
+              <div class="space-y-2">
+                <app-label htmlFor="budget">Budget Range (per person)</app-label>
+                <app-select [value]="budgetValue()" (valueChange)="onBudgetChange($event)">
+                  <app-select-trigger>
+                    <app-select-value [placeholder]="getBudgetPlaceholder()"></app-select-value>
+                  </app-select-trigger>
+                  <app-select-content>
+                    <app-select-item value="budget">Budget (₹5,000-15,000)</app-select-item>
+                    <app-select-item value="premium">Premium (₹15,000-30,000)</app-select-item>
+                    <app-select-item value="luxury">Luxury (₹30,000+)</app-select-item>
+                  </app-select-content>
+                </app-select>
+              </div>
+
+              <!-- Accommodation -->
+              <div class="space-y-2">
+                <app-label htmlFor="accommodation">Accommodation Type</app-label>
+                <app-select [value]="accommodationValue()" (valueChange)="onAccommodationChange($event)">
+                  <app-select-trigger>
+                    <app-select-value [placeholder]="getAccommodationPlaceholder()"></app-select-value>
+                  </app-select-trigger>
+                  <app-select-content>
+                    <app-select-item value="budget">Budget Hotels</app-select-item>
+                    <app-select-item value="3star">3-Star Hotels</app-select-item>
+                    <app-select-item value="4star">4-Star Hotels</app-select-item>
+                    <app-select-item value="luxury">Luxury Hotels</app-select-item>
+                    <app-select-item value="heritage">Heritage Properties</app-select-item>
+                  </app-select-content>
+                </app-select>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Step 3: Interests -->
+        @if (step() === 3) {
+          <div class="space-y-6">
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold mb-2">Your Interests</h3>
+              <p class="text-muted-foreground">What would you like to experience?</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+              @for (interest of interests; track interest) {
+                <div
+                  [class]="getInterestClass(interest)"
+                  (click)="handleInterestToggle(interest)"
+                >
+                  <span class="text-sm font-medium">{{ interest }}</span>
+                </div>
+              }
+            </div>
+
+            <div class="space-y-2">
+              <app-label htmlFor="specialRequests">Special Requests or Preferences</app-label>
+              <!-- Textarea ko fix kiya hai -->
+              <app-textarea
+                id="specialRequests"
+                placeholder="Any specific requirements, dietary restrictions, accessibility needs, or special occasions..."
+                [value]="specialRequestsValue()"
+                (valueChange)="specialRequestsValue.set($event)"
+                [rows]="4"
+              ></app-textarea>
+            </div>
+          </div>
+        }
+
+        <!-- Step 4: Contact Information -->
+        @if (step() === 4) {
+          <div class="space-y-6">
+            <div class="text-center mb-6">
+              <h3 class="text-xl font-semibold mb-2">Contact Information</h3>
+              <p class="text-muted-foreground">We'll send your custom package quote here</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Name -->
+              <div class="space-y-2">
+                <app-label htmlFor="name">Full Name</app-label>
+                <app-input
+                  id="name"
+                  placeholder="Enter your full name"
+                  [value]="contactNameValue()"
+                  (valueChange)="contactNameValue.set($event)"
+                ></app-input>
+              </div>
+
+              <!-- Email -->
+              <div class="space-y-2">
+                <app-label htmlFor="email">Email Address</app-label>
+                <app-input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  [value]="contactEmailValue()"
+                  (valueChange)="contactEmailValue.set($event)"
+                ></app-input>
+              </div>
+
+              <!-- Phone -->
+              <div class="space-y-2 md:col-span-2">
+                <app-label htmlFor="phone">Phone Number</app-label>
+                <app-input
+                  id="phone"
+                  placeholder="Enter your phone number"
+                  [value]="contactPhoneValue()"
+                  (valueChange)="contactPhoneValue.set($event)"
+                ></app-input>
+              </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="p-4 bg-muted/50 rounded-lg">
+              <h4 class="font-semibold mb-3">Package Summary</h4>
+              <div class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span class="text-muted-foreground">Destinations:</span>
+                  <p>{{ formData().destinations.join(', ') || 'Not selected' }}</p>
+                </div>
+                <div>
+                  <span class="text-muted-foreground">Duration:</span>
+                  <p>{{ formData().duration || 'Not selected' }}</p>
+                </div> 
+                <div>
+                  <span class="text-muted-foreground">Travelers:</span>
+                  <p>{{ formData().travelers || 'Not selected' }}</p>
+                </div>
+                <div>
+                  <span class="text-muted-foreground">Budget:</span>
+                  <p>{{ formData().budget || 'Not selected' }}</p>
+                </div>
+              </div>
+              @if (formData().interests.length > 0) {
+                <div class="mt-3">
+                  <span class="text-muted-foreground text-sm">Interests:</span>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    @for (interest of formData().interests; track interest) {
+                      <app-badge variant="outline" class="text-xs">
+                        {{ interest }}
+                      </app-badge>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Navigation -->
+      <div class="flex justify-between mt-8">
+        <app-button
+          variant="outline"
+          (click)="prevStep()"
+          [disabled]="step() === 1"
+        >
+          Previous
+        </app-button>
+        
+        @if (step() < 4) {
+          <app-button
+            (click)="nextStep()"
+            [disabled]="isNextDisabled()"
+          >
+            Next
+          </app-button>
+        } @else {
+          <app-button
+            (click)="handleSubmit()"
+            [disabled]="isSubmitDisabled()"
+            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+          >
+            Submit Request
+          </app-button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

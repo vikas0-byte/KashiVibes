@@ -1,0 +1,22 @@
+/* Select items ke liye hover effect */
+app-select-item {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+}
+
+app-select-item:hover {
+  opacity: 0.9;
+  background-color: hsl(var(--primary) / 0.1); /* Primary color with opacity */
+}
+
+/* Select trigger ke liye bhi hover effect */
+app-select-trigger {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+app-select-trigger:hover {
+  opacity: 0.9;
+  background-color: hsl(var(--primary) / 0.05);
+}
