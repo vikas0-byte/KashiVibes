@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: kashivibes
+    env: dotnet
+    plan: free
+    branch: main
+    root: KashiVibes.API
+    buildCommand: dotnet publish -c Release -o output
+    startCommand: dotnet ./output/KashiVibes.API.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production

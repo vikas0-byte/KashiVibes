@@ -9,6 +9,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Render.com specific - PORT environment variable
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -52,10 +56,9 @@ builder.Services.AddApplication();
 // Static Files Configuration
 builder.Services.Configure<StaticFileOptions>(options =>
 {
-    options.ServeUnknownFileTypes = false; // Change to false
+    options.ServeUnknownFileTypes = false;
     options.DefaultContentType = "application/octet-stream";
 
-    // MIME types manually set karein
     var provider = new FileExtensionContentTypeProvider();
     provider.Mappings[".js"] = "application/javascript";
     provider.Mappings[".mjs"] = "application/javascript";
@@ -67,8 +70,7 @@ builder.Services.Configure<StaticFileOptions>(options =>
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["SecretKey"]
-    ?? throw new ArgumentNullException("SecretKey", "JWT SecretKey is missing");
+var secretKey = jwtSettings["SecretKey"] ?? "YourSuperSecretKeyForRenderDeployment123";
 
 builder.Services.AddAuthentication(options =>
 {
@@ -83,26 +85,26 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtSettings["Issuer"],
-        ValidAudience = jwtSettings["Audience"],
+        ValidIssuer = jwtSettings["Issuer"] ?? "https://kashivibes.onrender.com",
+        ValidAudience = jwtSettings["Audience"] ?? "https://kashivibes.onrender.com",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
     };
 });
 
-// CORS - IMPROVED CONFIGURATION
+// CORS - Render.com ke liye update
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowProduction", policy =>
+    options.AddPolicy("AllowRender", policy =>
     {
         policy.WithOrigins(
-            "https://vikasvikki-001-site1.rtempurl.com",
-            "http://vikasvikki-001-site1.rtempurl.com",
-            "https://localhost:4200",
-            "http://localhost:4200"
-        )
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials();
+                "https://kashivibes.onrender.com",
+                "http://kashivibes.onrender.com",
+                "https://localhost:4200",
+                "http://localhost:4200"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -119,9 +121,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseHttpsRedirection();
 
-// SmarterASP.net specific - Angular SPA support
+// HTTPS Redirection - Render.com par comment out karein
+// app.UseHttpsRedirection();
+
+// Angular SPA support
 app.Use(async (context, next) =>
 {
     await next();
@@ -132,13 +136,13 @@ app.Use(async (context, next) =>
     }
 });
 
-// CORS must be in this order
-app.UseCors("AllowProduction");
+// CORS
+app.UseCors("AllowRender");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Static files serve karne ke liye
+// Static files
 app.UseStaticFiles(new StaticFileOptions
 {
     ContentTypeProvider = new FileExtensionContentTypeProvider
@@ -156,7 +160,7 @@ app.UseStaticFiles(new StaticFileOptions
 app.MapControllers();
 app.MapHealthChecks("/health");
 
-// YE LINE IMPORTANT HAI - Angular routing ke liye
+// Angular routing
 app.MapFallbackToFile("/index.html");
 
 app.Run();
